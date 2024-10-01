@@ -1,0 +1,66 @@
+<div class="row">
+  <h4 class="m-3">Sistema</h4>
+  <span style="color: #62b7e9">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip="Sistema"></i>
+  </span>
+</div>
+
+<div>
+  <div class="col-12">
+    <tabla-filtro-buscar
+      #tfb
+      [paginacionService]="tablaPag.paginacionService"
+      [lista]="data"
+      [($listaObservable)]="opcionesFiltro$"
+    ></tabla-filtro-buscar>
+  </div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">nombre</th>
+        <th scope="col">descripcion</th>
+        <th scope="col">valor</th>
+        <th scope="col" *ngIf="esEditar">EDITAR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let opcion of opcionesFiltro$ | async">
+        <td>
+          <ngb-highlight
+            [result]="opcion.nombre"
+            [term]="tfb.filtroTabla.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+          <ngb-highlight
+            [result]="opcion.descripcion"
+            [term]="tfb.filtroTabla.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+          <ngb-highlight
+            [result]="opcion.valor"
+            [term]="tfb.filtroTabla.value"
+          ></ngb-highlight>
+        </td>
+        <td class="text-center" width="50px">
+          <div class="btn-group btn-group-sm">
+            <button
+              class="btn btn-primary"
+              *ngIf="esEditar && validaBotonEditar(opcion.nombre)"
+              ngbTooltip="Editar"
+              (click)="obtenerFormularioEditar(opcion.dni)"
+            >
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <tabla-paginacion
+    #tablaPag
+    [lista]="data"
+    [($listaObservable)]="opcionesFiltro$"
+  ></tabla-paginacion>
+</div>

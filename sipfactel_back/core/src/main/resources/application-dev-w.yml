@@ -1,0 +1,39 @@
+project:
+  name: sipfactel
+
+
+spring:
+  jpa:
+    hibernate.ddl-auto: update
+    generate-ddl: false
+    show-sql: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+      ddl-auto: update        
+    properties:
+     hibernate.hbm2ddl.auto: none
+     hibernate.enable_lazy_load_no_trans: true
+     hibernate:
+       jdbc:          
+          time_zone: UTC
+       proc.param_null_passing: true
+ 
+  datasource:
+    jndi-name: JDBC/SIPFACTELV2
+    driverClassName: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@10.61.57.162:5523:PRODFACT
+    username: SIPFACTELDES
+    password: BgRE45_56bm
+
+environments:
+         app:
+           jwtSecret: JWTSuperSecretKey
+           jwtExpirationInMs: 900000
+         tests:
+            user: Admin
+            pass: 123
+ 
+ldap:
+  active: false

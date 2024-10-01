@@ -1,0 +1,15 @@
+<nav id="sidebar" class="sticky-top sticky-offset scrollable">
+
+    <div class="row">
+
+        <div class="col-12" >
+            <img src="../assets/img/alfa.png" alt="imagen" routerLink="/home" class="imagen">
+        </div>
+    
+
+    </div>
+    
+    <ul class="list-unstyled components menu" #menuPrincipal>
+        <app-menu-grupo *ngIf="!_.isNil(menuData) && menuData.length > 0" [menuData]="menuData" [estadoActual]="estadoActual"></app-menu-grupo>
+    </ul>
+</nav>

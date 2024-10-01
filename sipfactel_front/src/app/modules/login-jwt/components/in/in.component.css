@@ -1,0 +1,172 @@
+.borde {
+  border-radius: 7px;
+}
+
+.height {
+  height: 369px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 2px 2px 10px #666;
+}
+
+.position {
+  position: absolute;
+  top: 50%;
+  left: 33%;
+  width: 60%;
+  /* height: 450px; */
+  margin-top: -200px;
+  margin-left: -200px;
+}
+
+.card-title {
+  height: inherit;
+  background-color: #0d4750;
+
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.imagen {
+  width: 255px;
+  vertical-align: middle;
+  height: 103px;
+  border-style: none;
+  position: absolute;
+  left: 6px;
+  top: 110px;
+}
+.card-form {
+  padding: 30px;
+  height: inherit;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.row > h2 {
+  color: #0d4750;
+}
+
+form {
+  padding: 0 2em;
+}
+.form__input {
+  width: 100%;
+  border: 0px solid transparent;
+  /* border-radius: 20px; */
+  border-top-right-radius: 10px;
+  border-bottom: 1px solid #aaa;
+  padding: 1em 0.5em 0.5em;
+  padding-left: 2em;
+  outline: none;
+  margin: 1.5em auto;
+  transition: all 0.5s ease;
+}
+.form__input:focus {
+  border-bottom-color: #008080;
+  box-shadow: 0 0 5px rgba(0, 80, 80, 0.4);
+  border-radius: 4px;
+}
+
+.btn {
+  transition: all 0.5s ease;
+  width: 53%;
+  border-radius: 30px;
+  color: #008080;
+  font-weight: 600;
+  background-color: #fff;
+  border: 1px solid #008080;
+  margin-top: 0.7em;
+  margin-bottom: 1em;
+  margin-left: 7.5em;
+}
+.btn:hover,
+.btn:focus {
+  background-color: #008080;
+  color: #fff;
+}
+
+.input-group-text {
+  height: 50px;
+  margin-top: 24px;
+}
+
+.asterisc {
+  display: block;
+  color: red;
+  margin: -40px 436px;
+}
+
+@media (min-width: 768px) {
+  .imagen {
+    width: 168px;
+    vertical-align: middle;
+    height: 87px;
+    border-style: none;
+    position: absolute;
+    left: 6px;
+    top: 133px;
+  }
+
+  .asterisc {
+    display: block;
+    color: red;
+    margin: -40px 436px;
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+  .imagen {
+    width: 255px;
+    vertical-align: middle;
+    height: 103px;
+    border-style: none;
+    position: absolute;
+    left: 6px;
+    top: 110px;
+  }
+
+  .asterisc {
+    display: block;
+    color: red;
+    margin: -42px 329px;
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: 1080px) {
+  .imagen {
+    width: 236px;
+    vertical-align: middle;
+    height: 103px;
+    border-style: none;
+    position: absolute;
+    left: 15px;
+    top: 110px;
+  }
+
+  .asterisc {
+    display: block;
+    color: red;
+    margin: -40px 436px;
+  }
+}
+
+@media (min-width: 1500px) {
+  .imagen {
+    width: 236px;
+    vertical-align: middle;
+    height: 103px;
+    border-style: none;
+    position: absolute;
+    left: 27px;
+    top: 116px;
+  }
+
+  .asterisc {
+    display: block;
+    color: red;
+    margin: -40px 501px;
+  }
+}

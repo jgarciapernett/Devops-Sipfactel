@@ -1,0 +1,196 @@
+<div class="container">
+
+    <form [formGroup]="frmAgregarDatosCompania" class="mx-sm-4" (ngSubmit)="agregarDatosCompania()">
+
+        <div class="form-group row" *ngIf="this.esAgregar">
+            <label for="ddlCompanias" class="col-form-label col-4">Compañía :</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="ddlCompanias" name="ddlCompanias" id="ddlCompanias" [(ngModel)]="camposDatosCompania.comp" (change)="cambioDeOpcionElegida(opcionElegida)">
+
+                <option [ngValue]="0" >Seleccione </option>
+                <option *ngFor="let opcion of listaCompanias" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+
+                </select>
+                
+                <div *ngIf="frmAgregarDatosCompania.get('ddlCompanias').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+            </div>
+
+        </div>
+
+        <div class="form-group row" *ngIf="!this.esAgregar">
+            <label for="txtDdlCompanias" class="col-form-label col-4">Compañía :</label>
+
+            <div class="col-8">
+                <input type="text" maxlength="50" class="form-control" name="txtDdlCompanias" id="txtDdlCompanias" formControlName="ddlCompanias" [(ngModel)]="camposDatosCompania.nombre">
+
+                <div *ngIf="frmAgregarDatosCompania.get('ddlCompanias').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+<br>
+        <div class="form-group row">
+            <label for="txtCodigoAscel" class="col-form-label col-4">Código Ascel-e :</label>
+
+            <div class="col-8">
+                <input type="text" maxlength="50" class="form-control" name="txtCodigoAscel" id="txtCodigoAscel" formControlName="txtCodigoAscel" [(ngModel)]="camposDatosCompania.codascele">
+
+                <div *ngIf="frmAgregarDatosCompania.get('txtCodigoAscel').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+<br>
+        <div class="form-group row">
+            <label for="ddlTipoDoc" class="col-form-label col-4">Tipo Documento :</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="ddlTipoDoc" name="ddlTipoDoc" id="ddlTipoDoc" [(ngModel)]="camposDatosCompania.tipodocumento" >
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaTipoDocumento" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+    
+                </select>
+
+
+                <div *ngIf="frmAgregarDatosCompania.get('ddlTipoDoc').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+<br>
+        <div class="form-group row" *ngIf="!esAgregar">
+            <label for="ddlCodPais" class="col-form-label col-4">Código pais :</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="ddlCodPais" name="ddlCodPais" id="ddlCodPais" [(ngModel)]="camposDatosCompania.codigopais">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaPaises" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+    
+                </select>
+                    
+                <div *ngIf="frmAgregarDatosCompania.get('ddlCodPais').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+
+       
+        <label for="ddlObligFiscales" style="left: -15px;" class="col-form-label col-4">Obligaciones fiscales : </label>
+        <div class="col-8  " style="left: 320px;">
+            <div class="col " [ngClass]="{ 'alert-success': esObligacionValido === true, 'alert-danger': camposDatosCompania.obligacionesfiscales.length == 0  }">
+                <div *ngFor="let obli of listaobligacionesFiscales">
+                    <input type="checkbox"  minlength="1" [id]="obli.id" [value]="obli.id" [checked]="esObligacionSeleccionada(obli.id)" (change)="obligaciones($event, obli.id,obli.nombre,obli.idStr)">
+                    <label [for]="obli.id">{{ obli.nombre ? obli.nombre : obli.id }}</label>
+                   
+                </div>
+
+            </div>
+            <div *ngIf="camposDatosCompania.obligacionesfiscales.length == 0" class="alert alert-danger ">
+                <i class="fa fa-exclamation-circle "></i> Este campo es obligatorio, marque al menos una opción
+            </div>
+        </div>
+        <br>
+
+
+        <div class="form-group row" *ngIf="!this.esAgregar">
+            <label for="txtRazonSocial" class="col-form-label col-4">Razón Social :</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="50" name="txtRazonSocial" id="txtRazonSocial" formControlName="txtRazonSocial" [(ngModel)]="camposDatosCompania.razonsocial">
+
+                <div *ngIf="frmAgregarDatosCompania.get('txtRazonSocial').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+
+
+        <div class="form-group row">
+            <label for="txtCodPoint" class="col-form-label col-4">Código Point :</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="50" name="txtCodPoint" id="txtCodPoint" formControlName="txtCodPoint" [(ngModel)]="camposDatosCompania.codpoint">
+
+                <div *ngIf="frmAgregarDatosCompania.get('txtCodPoint').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtDocumento" class="col-form-label col-4">Documento :</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="50" name="txtDocumento" id="txtDocumento" formControlName="txtDocumento" [(ngModel)]="camposDatosCompania.documento">
+
+                <div *ngIf="frmAgregarDatosCompania.get('txtDocumento').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group row" *ngIf="this.esAgregar === false ">
+            <label for="txtNomPais" class="col-form-label col-4">Nombre País :</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="50" name="txtNomPais" id="txtNomPais" formControlName="txtNomPais" [(ngModel)]="camposDatosCompania.nombrepais">
+
+                <div *ngIf="frmAgregarDatosCompania.get('txtNomPais').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br *ngIf="this.esAgregar === false" >
+        
+        <div class="form-group row">
+            <label for="ddlTipoPersona" class="col-form-label col-4">Tipo Persona :</label>
+
+            <div class="col-8">
+
+                <select class="custom-select"    formControlName="ddlTipoPersona" name="ddlTipoPersona" id="ddlTipoPersona" [(ngModel)]="camposDatosCompania.tipopersona">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaTipoPersona" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+        
+                </select>
+
+                <div *ngIf="frmAgregarDatosCompania.get('ddlTipoPersona').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <div class="d-flex justify-content-center mb-5 mt-5">
+            <button *ngIf="esAgregar === true" type="submit" [disabled]="!frmAgregarDatosCompania.valid && esObligacionValido === false || camposDatosCompania.comp === 0 || camposDatosCompania.documento == '' || camposDatosCompania.codpoint == '' || camposDatosCompania.tipodocumento == 0 || camposDatosCompania.tipopersona == 0 || camposDatosCompania.codascele == '' || camposDatosCompania.obligacionesfiscales.length == 0" class="btn btn-primary">Siguiente</button>
+            <button *ngIf="esAgregar === false"  type="submit" [disabled]="!frmAgregarDatosCompania.valid ||esObligacionValido != true || camposDatosCompania.obligacionesfiscales.length == 0 "  class="btn btn-primary">Siguiente</button>
+        </div>
+    </form>
+
+</div>

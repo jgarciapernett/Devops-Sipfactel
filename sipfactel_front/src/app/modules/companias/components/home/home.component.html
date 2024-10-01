@@ -1,0 +1,33 @@
+<div class="row">
+    <h4 class="m-3">Compañías</h4>
+    <span  style="color: #62b7e9;">
+        <i class="fa fa-info-circle fa-lg mt-4 mb-3"> </i>
+    </span>
+</div>
+<p class="mb-5">
+    <ngb-progressbar [value]="this.valor">{{this.titulo }}</ngb-progressbar>
+</p>
+
+<div class=" container mb-5">
+    <ul class="nav nav-tabs ">
+        <li><button class="nav-item nav-link btn active  "  *ngIf="esCrear"  [ngStyle]="cambioDeFondoAgregar?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} " [disabled]="Agregar" (click)="obtenerFormularioAgregar()">Agregar<i class="fa fa-plus-circle ml-2" aria-hidden="true"></i></button></li>
+        <li><button class="nav-item nav-link btn active " *ngIf="esEditar"  [ngStyle]="cambioDeFondoEditar?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} " [disabled]="Editar" (click)="obtenerFormularioEditar()">Editar<i class="fa fa-pencil-square-o ml-2" aria-hidden="true"></i></button></li>
+        <li class="col-9">
+            <button style="margin-right: -9%;" *ngIf="cancelar" class="btn btn-outline-danger active float-right" (click)="botonCancelar()" [ngbPopover]="this.contenido" triggers="mouseenter:mouseleave" popoverTitle="Cancelar"><i class="fa fa-times" aria-hidden="true"></i></button>
+        </li>
+    </ul>
+</div>
+
+<div *ngIf="formulario">
+
+    <div *ngIf="esAgregar !== undefined">
+
+        <compania-datos-compania [esAgregar]="esAgregar" (dato)="ActualizarDatosCompania($event)" (idCompaniaEditar)="cargarCompaniaEditar($event)" [oblig]="this.oblig" (limpiarFormulario)="limpiarFormulario" [companiaEditar]="this.compania" *ngIf="this.paso ===1"></compania-datos-compania>
+
+        <compania-tipo-operacion (tipo)="ActualizarTipoOperacion($event)" (paso)="actualizarPasoAtras($event)"  [companiaTipoEditar]="this.compania" *ngIf="this.paso === 2"></compania-tipo-operacion>
+
+        <compania-datos-generales [esAgregar]="esAgregar" (general)="actualizarDatosGenerales($event)" (paso)="actualizarPasoAtras($event)" [companiaDatosGenerales]="this.compania" *ngIf="this.paso===3"></compania-datos-generales>
+
+    </div>
+
+</div> 

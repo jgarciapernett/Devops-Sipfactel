@@ -1,0 +1,194 @@
+<form [formGroup]="frmAgregarDatosGenerales" class="mx-sm-4" (ngSubmit)="agregarCompaniaDatosGenerales()">
+
+    <div class="form-group row"  *ngIf="!esAgregar"  >
+        <label for="txtCodEmpresa" class="col-form-label col-4">Código Empresa :</label>
+
+        <div class="col-8">
+            <input type="text" maxlength="50" class="form-control" name="txtCodEmpresa" id="txtCodEmpresa" formControlName="txtCodEmpresa" [(ngModel)]="operacionGeneral.codempresa">
+
+            <div *ngIf="frmAgregarDatosGenerales.get('txtCodEmpresa').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+    <br *ngIf="!esAgregar" >
+
+    <div class="form-group row" *ngIf="!esAgregar" >
+        <label for="ddlCodAtributo" class="col-form-label col-4">Código Atributo :</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="ddlCodAtributo" name="ddlCodAtributo" id="ddlCodAtributo" [(ngModel)]="operacionGeneral.nomatributo" [required]="!esAgregar">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaTipoTributo" [ngValue]="opcion.nombre">{{ opcion.nombre }}</option>
+
+            </select>
+
+            <div *ngIf="frmAgregarDatosGenerales.get('ddlCodAtributo').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+<br *ngIf="!esAgregar" >
+    
+    <div class="form-group row">
+        <label for="ddlPorAtributo" class="col-form-label col-4">Porcentaje Atributo :</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="ddlPorAtributo" name="ddlPorAtributo" id="ddlPorAtributo" [(ngModel)]="operacionGeneral.porcatributo">
+
+                <option [ngValue]="0" >Seleccione </option>
+                <option *ngFor="let opcion of listaPorcentajeAtributo" [ngValue]="opcion.id">{{ opcion.nombre }} - {{opcion.llave}}</option>
+
+            </select>
+
+            <div *ngIf="frmAgregarDatosGenerales.get('ddlPorAtributo').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+   <br>
+    <div class="form-group row">
+        <label for="ddlForPago" class="col-form-label col-4">Forma de Pago :</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="ddlForPago" name="ddlForPago" id="ddlForPago" [(ngModel)]="operacionGeneral.formapago">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaFormaPago" [ngValue]="opcion.id">{{ opcion.nombre }}</option>
+
+            </select>
+
+            <div *ngIf="frmAgregarDatosGenerales.get('ddlForPago').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+<br>
+    <div class="form-group row ">
+        <label for="ddlUniMedida" class="col-form-label col-4">Unidad de Medida :</label>
+
+        <div class="col-8 ">
+
+            <select class="custom-select" formControlName="ddlUniMedida" name="ddlUniMedida" id="ddlUniMedida" [(ngModel)]="operacionGeneral.undmedida">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaUnidadMedida" [ngValue]="opcion.id">{{ opcion.nombre }}</option>
+
+            </select>
+            
+            <div *ngIf="frmAgregarDatosGenerales.get('ddlUniMedida').errors" class="invalid-tooltip">
+                Este campo es obligatorio   
+            </div>
+
+        </div>
+
+    </div>
+<br>
+    <div class="form-group row">
+        <label for="ddlCodEstandar" class="col-form-label col-4">Código Estandar :</label>
+
+        <div class="col-8 ">
+
+            <select class="custom-select" formControlName="ddlCodEstandar" name="ddlCodEstandar" id="ddlCodEstandar" [(ngModel)]="operacionGeneral.codestandar">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaProductos" [ngValue]="opcion.id">{{ opcion.nombre }}</option>
+                
+            </select>
+
+            <div *ngIf="frmAgregarDatosGenerales.get('ddlCodEstandar').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+<br>
+    <div class="form-group row">
+        <label for="txttributo" class="col-form-label col-4">Tributo</label>
+        <div class="col-8">
+          <select class="custom-select" formControlName="txttributo" name="txttributo" id="txttributo"
+           [(ngModel)]="operacionGeneral.codatributo">
+            <option [ngValue]="0">Seleccione </option>
+            <option *ngFor="let opcion of listaTipoTributo" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+          </select>
+          <div *ngIf="frmAgregarDatosGenerales.get('txttributo').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+
+    </div>
+    </div>
+<br>
+    <div class="form-group row">
+        <label for="txtCantidad" class="col-form-label col-4 ">Cantidad :</label>
+
+        <div class="col-8 ">
+            <input type="text" maxlength="50" class="form-control" name="txtCantidad" id="txtCantidad" formControlName="txtCantidad" [(ngModel)]="operacionGeneral.cantidad">
+
+            <div *ngIf="frmAgregarDatosGenerales.get('txtCantidad').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+<br>
+    <div class="form-group row">
+        <label for="ddlMetodoPago" class="col-form-label col-4">Método de Pago :</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="ddlMetodoPago" name="ddlMetodoPago" id="ddlMetodoPago" [(ngModel)]="operacionGeneral.metodopago">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaMetodoPago" [ngValue]="opcion.id">{{ opcion.nombre }}</option>
+
+            </select>
+
+            <div *ngIf="frmAgregarDatosGenerales.get('ddlMetodoPago').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+        
+    </div>
+        
+<br>
+    <div class="form-group row">
+        <label for="ddlRegimen" class="col-form-label col-4">Régimen :</label>
+
+        <div class="col-8">
+            <select class="custom-select" formControlName="ddlRegimen" name="ddlRegimen" id="ddlRegimen" [(ngModel)]="operacionGeneral.regimen">
+
+                <option [ngValue]=0 >Seleccione </option> 
+                <option *ngFor="let opcion of listaRegimen" [ngValue]="opcion.id">{{ opcion.nombre }}</option>
+
+            </select>
+
+            <div *ngIf="frmAgregarDatosGenerales.get('ddlRegimen').errors" class="invalid-tooltip">
+                Este campo es obligatorio   
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <div class="d-flex justify-content-center mb-5 mt-5">
+        <button type="button" class="btn btn-danger mr-3" (click)="volverAtras()">Atras</button>
+        <button type="submit" [disabled]="frmAgregarDatosGenerales.invalid" class="btn btnGuardar btn-primary">Guardar</button>
+    </div>
+
+</form>

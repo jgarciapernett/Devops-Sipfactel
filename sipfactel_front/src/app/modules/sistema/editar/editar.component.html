@@ -1,0 +1,104 @@
+<div class="row">
+  <h4 class="m-3">Editar Parametro</h4>
+  <span style="color: #62b7e9">
+    <i
+      class="fa fa-info-circle fa-lg mt-4 mb-3"
+      ngbTooltip="Editar Parametro"
+    ></i>
+  </span>
+</div>
+<div>
+  <hr />
+
+  <form [formGroup]="formulario" class="mx-sm-4" (ngSubmit)="servicioEditar()">
+    <div class="form-group row">
+      <label for="nombre" class="col-form-label col-4">Nombre:</label>
+
+      <div class="col-8">
+        <input
+          type="text"
+          formControlName="nombre"
+          maxlength="50"
+          class="form-control"
+          name="nombre"
+          id="nombre"
+          [(ngModel)]="parametro.nombre"
+          readonly
+        />
+        <div
+          *ngIf="formulario.get('nombre').errors?.required"
+          class="invalid-tooltip"
+        >
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="descripcion" class="col-form-label col-4"
+        >Descripcion:</label
+      >
+
+      <div class="col-8">
+        <input
+          type="text"
+          formControlName="descripcion"
+          maxlength="100"
+          class="form-control"
+          name="descripcion"
+          id="descripcion"
+          [(ngModel)]="parametro.descripcion"
+        />
+        <div
+          *ngIf="formulario.get('descripcion').errors?.required"
+          class="invalid-tooltip"
+        >
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="form-group row">
+      <label for="valor" class="col-form-label col-4"
+        >valor:</label
+      >
+      <div class="col-8">
+        <input
+          type="number"
+          formControlName="valor"
+          oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+          maxlength="3"
+          class="form-control"
+          name="valor"
+          id="valor"
+          [(ngModel)]="parametro.valor"
+          pattern="^[0-9]+"
+        />
+        <div
+          *ngIf="formulario.get('valor').errors?.required"
+          class="invalid-tooltip"
+        >
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="d-flex justify-content-center">
+      <button
+        type="button"
+        (click)="botonCancelar()"
+        data-dismiss="modal"
+        class="btn btn-danger mr-3"
+      >
+        <i class="fa fa-ban mr-1"></i>Cancelar
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="!formulario.valid"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

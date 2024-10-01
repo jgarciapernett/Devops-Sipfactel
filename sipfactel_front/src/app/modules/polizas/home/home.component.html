@@ -1,0 +1,271 @@
+<div class="row">
+  <h4 class="ml-4 mr-3" style="margin-top: 20px; margin-bottom: 15px">
+    Pólizas
+  </h4>
+
+  <span style="color: #62b7e9">
+    <i
+      class="fa fa-info-circle fa-lg mt-4 mb-"
+      ngbTooltip=" pantalla de pólizas"
+    ></i>
+  </span>
+</div>
+
+<div>
+  <form [formGroup]="frmPolizas" class="form-row">
+    <div class="form-group col-md-6">
+      <label for="Npoliza" class="col-form-label col-4">N° Póliza</label>
+      <div class="col-8">
+        <input
+          type="text"
+          formControlName="Npoliza"
+          class="form-control"
+          maxlength="50"
+          [(ngModel)]="numPoliza"
+          name="Npoliza"
+          id="Npoliza"
+        />
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="Nfac" class="col-form-label col-4">N° Documento</label>
+      <div class="col-8">
+        <input
+          type="text"
+          formControlName="Nfac"
+          class="form-control"
+          maxlength="50"
+          [(ngModel)]="numFac"
+          name="Nfac"
+          id="Nfac"
+        />
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="d2" class="col-form-label col-4">Fecha Inicial Envio</label>
+      <div class="input-group col-8">
+        <input
+          class="form-control"
+          [maxDate]="Date"
+          name="d2"
+          [(ngModel)]="fechaIniEnvio"
+          ngbDatepicker
+          #d2="ngbDatepicker"
+          placeholder="dd/mm/yy"
+          formControlName="fIniEnvio"
+        />
+
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar"
+            ngbTooltip="Calendario"
+            (click)="d2.toggle()"
+            type="button"
+          >
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div *ngIf="frmPolizas.get('fIniEnvio').errors" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="d22" class="col-form-label col-4">Fecha Fin Envio</label>
+      <div class="input-group col-8">
+        <input
+          class="form-control"
+          [minDate]="fechaIniEnvio"
+          name="d22"
+          [(ngModel)]="fechaFinEnvio"
+          ngbDatepicker
+          #d22="ngbDatepicker"
+          placeholder="dd/mm/yy"
+          formControlName="fFinEnvio"
+        />
+
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar"
+            ngbTooltip="Calendario"
+            (click)="d22.toggle()"
+            type="button"
+          >
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div *ngIf="frmPolizas.get('fFinEnvio').errors" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="d3" class="col-form-label col-4">Fecha Inicial Emisión</label>
+      <div class="input-group col-8">
+        <input
+          class="form-control"
+          [maxDate]="Date"
+          name="d3"
+          [(ngModel)]="fechaIniEmision"
+          ngbDatepicker
+          #d3="ngbDatepicker"
+          placeholder="dd/mm/yy"
+          formControlName="fIniEmision"
+        />
+
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar"
+            ngbTooltip="Calendario"
+            (click)="d3.toggle()"
+            type="button"
+          >
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div
+          *ngIf="frmPolizas.get('fIniEmision').errors"
+          class="invalid-tooltip"
+        >
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-md-6">
+      <label for="d33" class="col-form-label col-4">Fecha Fin Emisión</label>
+      <div class="input-group col-8">
+        <input
+          class="form-control"
+          [minDate]="fechaIniEmision"
+          name="d33"
+          [(ngModel)]="fechaFinEmision"
+          ngbDatepicker
+          #d33="ngbDatepicker"
+          placeholder="dd/mm/yy"
+          formControlName="fFinEmision"
+        />
+
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar"
+            ngbTooltip="Calendario"
+            (click)="d33.toggle()"
+            type="button"
+          >
+            <i class="fa fa-calendar" aria-hidden="true"></i>
+          </button>
+        </div>
+        <div
+          *ngIf="frmPolizas.get('fFinEmision').errors"
+          class="invalid-tooltip"
+        >
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="btn btn-primary ml-4"
+      *ngIf="esConsultar"
+      [disabled]="validacionFiltro()"
+      (click)="validarFiltrosPoliza(true)"
+    >
+      Filtrar<i class="fa fa-filter" aria-hidden="true"></i>
+    </button>
+  </form>
+</div>
+
+<hr />
+<br />
+
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Número de póliza</th>
+        <th scope="col">Número documento</th>
+        <th scope="col">Tipo factura</th>
+        <th scope="col">Fecha Envío</th>
+        <th scope="col">Fecha Emisión</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Causa</th>
+        <th scope="col" *ngIf="esEditar">Operación</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let opcion of polizas">
+        <td>
+          {{ opcion.numeroPoliza }}
+        </td>
+        <td>
+          {{ opcion.numeroDocumento }}
+        </td>
+        <td>
+          {{ opcion.tipoDocumento }}
+        </td>
+        <td>
+          {{opcion.fechaEnvio}}
+        </td>
+        <td>
+          {{ opcion.fechaEmision }}
+        </td>
+        <td>
+          {{ opcion.estado }}
+        </td>
+        <td>
+          {{ opcion.causa }}
+        </td>
+        <td class="text-center" *ngIf="esEditar">
+          <div class="btn-group btn-group-sm mr-5">
+            <button
+              *ngIf="esEditar"
+              class="btn btn-primary ml-2"
+              (click)="
+                formularioEditar(
+                  opcion.dni,
+                  opcion.tipoDocumento,
+                  opcion.adquiriente
+                )
+              "
+              ngbTooltip="Editar"
+              placement="left"
+            >
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+
+            <button
+              (click)="reenviarDatos(opcion.numeroDocumento, opcion.valor)"
+              class="btn btn-primary ml-2"
+              ngbTooltip="Reenviar"
+              placement="left"
+            >
+              <i class="fa fa-share-square-o" aria-hidden="true"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="row mt-2">
+  <div class="col">
+      <div class="d-flex justify-content-between p-0">
+          <ngb-pagination [collectionSize]="totalElements" [(page)]="pagina" [pageSize]="pageSize" [maxSize]="maxSize" [boundaryLinks]="true"
+          (pageChange)="cambiarPagina($event)">
+          </ngb-pagination>
+          <span class="my-2">Total de filas: <strong>{{ totalElements }}</strong></span>
+            <select class="custom-select mb-2" style="width: auto" [(ngModel)]="pageSize" (change)="cambiarTamano()">
+        <option [ngValue]="5">5 filas por página</option>
+        <option [ngValue]="10">10 filas por página</option>
+        <option [ngValue]="25">25 filas por página</option>
+        <option [ngValue]="50">50 filas por página</option>
+    </select>
+      </div>
+  </div>
+</div>

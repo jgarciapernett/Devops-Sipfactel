@@ -1,0 +1,202 @@
+@font-face{
+    font-family: 'conduitositc';
+    src: url("fonts/conduitositc.otf");
+    font-weight: normal;
+    font-type: cursive;
+    font-size: 3.3em;
+  }
+
+
+
+  @font-face {
+    font-family: 'Myriad Pro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Regular'), url('fonts/MYRIADPRO-REGULAR.woff') format('woff');
+    }
+  
+  
+
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.navbar {
+
+   
+     background-image: url(../assets/img/fondoLoginV.png);
+    background-color: transparent; 
+     background: #237361;
+    border: none; 
+    /* color: black;  */
+    color: white;
+    
+    border-radius: 0;
+    margin-bottom: 40px;
+    /* margin-left: 5px; */
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); 
+}
+
+.navbar-btn {
+    box-shadow: none;
+    outline: none!important;
+    border: none;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+}
+
+.wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+    background-color: white;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background: #b9ddd7 ;
+    color: #fff;
+    transition: all 0.3s;
+    /* Estilos aplicados por especifidad de libreria de terceros https://developer.mozilla.org/es/docs/Web/CSS/Especificidad */
+    padding: 0 !important;
+    margin-top: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 0 !important;
+    margin-left: 0;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
+#sidebar .sidebar-header {
+    padding: 1px;
+    padding-top: 6px;
+    background: #1c9b83 ;
+}
+
+#sidebar ul.components {
+    padding: 20px 0px;
+    border-bottom: 1px solid gray;
+}
+
+#sidebar ul p {
+    padding: 10px;
+    font-size: 1.1em;
+    display: block;
+    font-family:'conduitositc' ;
+}
+
+#sidebar ul li a {
+    padding: 10px;
+    font-size: 2em;
+    display: block;
+    background: #0B5F4C;
+    font-weight: normal;
+    font-family:'Myriad Pro Regular' ;
+
+    
+    
+}
+
+#sidebar ul li a:hover {
+  outline-color: rgba(49, 138, 172, 0);
+  outline-offset: 80px;
+  text-shadow: 1px 1px 6px #189881;
+  
+}
+
+#sidebar ul li.active>a,
+a[aria-expanded="true"] {
+    color: #fff;
+    background: #0B5F4C;
+    font-family:'Myriad Pro Regular' ;
+    
+}
+
+#sidebar ul li a.active,
+a[aria-expanded="true"] {
+    color: white;
+    background: #1c9b83;
+    font-family:'Myriad Pro Regular' ;
+    
+}
+
+a[data-toggle="collapse"] {
+    position: relative;
+}
+
+.dropdown-toggle::after {
+    display: block;
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 30px !important;
+    background: #009B76;
+}
+
+ul.CTAs {
+    padding: 20px;
+}
+
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: #009B76;
+}
+
+a.article,
+a.article:hover {
+    background: #009B76 !important;
+    color: #fff !important;
+}
+
+#content {
+    width: 100%;
+    padding: 20px;
+    min-height: 100vh;
+    transition: all 0.3s;
+}
+
+@media(max-width:768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+    #sidebar.active {
+        margin-left: 0px;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}
+
+
+
+/* Intenté cambiar el color de fondo de la pestaña inactiva (la diferencia entre las pestañas activas e inactivas era demasiado sutil) y pude hacerlo a través del estilo en estilos globales.scss: */
+
+
+

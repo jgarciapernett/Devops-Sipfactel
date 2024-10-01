@@ -1,0 +1,64 @@
+<div class="d-flex flex-column justify-content-center align-items-center vh-100 min-vh-100 " style="background-image: url(../assets/img/fondoLogin.png) ; background-repeat: no-repeat;
+ background-size: cover;">
+
+  <div class="container-fluid">
+    <div class="row position">
+
+      <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+
+          <div class="row  height">
+            <div class="col-4  card-title">
+              <img src="../assets/img/alfa.png" alt="imagen" class="imagen">
+            </div>
+
+            <div class="col-8 card-form">
+
+              <h2 style="text-align: center; color: #0D4750;">Iniciar sesión</h2>
+              <hr>
+
+              <form [formGroup]="frmSesion" class="form-group" (ngSubmit)="this.iniciarSesion()">
+                <div class="row">
+                  <div class="input-group-prepend col-1">
+                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                  </div>
+                  <input type="text" name="username" id="username" min="0" maxlength="50" class=" form__input col-10"
+                    placeholder="Usuario" formControlName="txtUsuario" [(ngModel)]="this.objlogin.usuario">
+                  <span *ngIf="this.objlogin.usuario == ''" class="asterisc">*</span>
+                  <div *ngIf="frmSesion.get('txtUsuario').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                  </div>
+                  <div *ngIf="frmSesion.get('txtUsuario').errors?.minlength" class="invalid-tooltip">Debe contener mas de
+                    12 caracteres</div>
+                </div>
+                <div class="row">
+                  <div class="input-group col-1">
+                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                  </div>
+                  <input  type="password" name="password" id="password" maxlength="50"
+                    [(ngModel)]="this.objlogin.contrasena" class="form__input col-10" formControlName="txtContrasenia" placeholder="Contraseña">
+                  <span *ngIf="this.objlogin.contrasena == ''"   class="asterisc">*</span>
+                  <div *ngIf="frmSesion.get('txtContrasenia').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                  </div>
+                  <div *ngIf="frmSesion.get('txtContrasenia').errors?.minlength" class="invalid-tooltip">Debe contener mas de
+                    12 caracteres</div>
+                </div>
+                <div class="row">
+                  <input type="submit" value="Ingresar" class="btn">
+                </div>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </div>
+
+</div>

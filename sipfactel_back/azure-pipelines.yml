@@ -1,0 +1,39 @@
+# Node.js with Angular
+# Build a Node.js project that uses Angular.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- desarrollo
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+
+- task: Gradle@2
+  inputs:
+    gradleWrapperFile: 'gradlew'
+    tasks: 'bootWar'
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    sonarQubeRunAnalysis: false
+
+- task: PublishBuildArtifacts@1
+  inputs:
+
+<<<<<<< HEAD
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/core/build/libs/'
+=======
+<<<<<<< HEAD
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)/core/build/libs/*.*'
+=======
+    PathtoPublish: '$(System.DefaultWorkingDirectory)/core/build/libs/'
+>>>>>>> hotfix/RC_1.0.0
+>>>>>>> RC_2.0.0_Sprint4
+
+
+
+    ArtifactName: 'drop'
+    publishLocation: 'Container'

@@ -1,0 +1,53 @@
+<div class="row">
+  <h4 class=" ml-4 mr-3" style="margin-top:20px; margin-bottom:15px">ETL</h4>
+
+  <span style="color: #62b7e9;">
+  <i class="fa fa-info-circle fa-lg mt-4 mb-" ngbTooltip=" pantalla de etl"></i>
+  </span>
+</div>
+<div>
+  <div class="col-12">
+    <tabla-filtro-buscar
+      #tfb
+      [paginacionService]="tablaPag.paginacionService"
+      [lista]="ejecuciones"
+      [($listaObservable)]="opcionesFiltro$"
+    ></tabla-filtro-buscar>
+  </div>
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">Fecha programada</th>
+        <th scope="col">Fecha ejecutada</th>
+        <th scope="col">Ejecucion</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let opcion of opcionesFiltro$ | async; index as i">
+        <td>
+          <ngb-highlight
+            [result]="opcion.fechaProgramada"
+            [term]="tfb.filtroTabla.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+          <ngb-highlight
+            [result]="opcion.fechaEjecutada"
+            [term]="tfb.filtroTabla.value"
+          ></ngb-highlight>
+        </td>
+        <td>
+          <ngb-highlight
+            [result]="opcion.ejecutado"
+            [term]="tfb.filtroTabla.value"
+          ></ngb-highlight>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <tabla-paginacion
+    #tablaPag
+    [lista]="ejecuciones"
+    [($listaObservable)]="opcionesFiltro$"
+  ></tabla-paginacion>
+</div>

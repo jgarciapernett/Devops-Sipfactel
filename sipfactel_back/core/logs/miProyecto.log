@@ -1,0 +1,8 @@
+2024-08-16 08:53:12.741  INFO 24388 --- [main] c.c.periferia.alfa.core.CoreApplication  : Starting CoreApplication on PE-HO-1093 with PID 24388 (started by duvanrodriguez in C:\repositorios\SEGUROS ALFA\SIPFACTEL\back\sipfactel_back\core)
+2024-08-16 08:53:12.742  INFO 24388 --- [main] c.c.periferia.alfa.core.CoreApplication  : The following profiles are active: dev
+2024-08-16 08:53:14.279  INFO 24388 --- [main] c.c.p.alfa.core.AppConfigurationJNDI     : initializing tomcat factory... 
+2024-08-16 08:53:16.601  INFO 24388 --- [main] c.c.p.alfa.core.AppConfigurationJNDI     : Ingreso a credenciales
+2024-08-16 08:53:21.253  INFO 24388 --- [main] c.c.p.a.c.controller.DelcopController    : Sprint 5 - Hora envio del metodo sp: 0 */1 * ? * * 
+2024-08-16 08:53:21.346  INFO 24388 --- [main] c.c.p.a.c.controller.DelcopController    : Hora envio del metodo reenvioFacturasNotas: 0 */59 * ? * * 
+2024-08-16 08:53:22.035  INFO 24388 --- [main] c.c.periferia.alfa.core.CoreApplication  : Started CoreApplication in 9.702 seconds (JVM running for 10.187)
+2024-08-16 08:53:22.196  INFO 24388 --- [main] c.c.periferia.alfa.core.CoreApplication  : Inicia aplicacion

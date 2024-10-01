@@ -1,0 +1,143 @@
+<div class="row mr-4">
+  <h4 class="mr-3 ml-3" style="margin-top:20px; margin-bottom:15px">Editar Roles</h4>
+
+  <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip=" pantalla de editar Roles"></i>
+  </span>
+</div>
+
+<form [formGroup]="frmEditarRoles" class="mx-sm-" (ngSubmit)="editarRol()">
+
+
+  <div class="form-group row">
+    <label for="roleNombre" class="col-form-label col-4">Nombre Rol:</label>
+
+    <div class="col-8">
+      <input type="text" maxlength="101" class="form-control" name="roleNombre" id="roleNombre"
+        formControlName="roleNombre" [(ngModel)]="EditarRoles.roleNombre">
+
+      <div *ngIf="frmEditarRoles.get('roleNombre').errors?.required" class="invalid-tooltip">
+        Este campo es obligatorio
+      </div>
+      <div *ngIf="frmEditarRoles.get('roleNombre').errors?.maxlength" class="invalid-tooltip">
+        Maximo 100 caracteres
+      </div>
+    </div>
+
+  </div>
+  <br>
+  <div class="form-group row">
+    <label for="roleDescripcion" class="col-form-label col-4">Descripción:</label>
+
+    <div class="col-8">
+      <input type="textarea" maxlength="101" class="form-control" name="roleDescripcion" id="roleDescripcion"
+        formControlName="roleDescripcion" [(ngModel)]="EditarRoles.roleDescripcion">
+
+      <div *ngIf="frmEditarRoles.get('roleDescripcion').errors?.required" class="invalid-tooltip">
+        Este campo es obligatorio
+      </div>
+      <div *ngIf="frmEditarRoles.get('roleDescripcion').errors?.maxlength" class="invalid-tooltip">
+        Maximo 100 caracteres
+      </div>
+
+    </div>
+
+  </div>
+
+<br>
+  <div class="form-group row">
+    <label for="roleEsta" class="col-form-label col-4">Estado:</label>
+
+    <div class="col-8">
+
+      <select class="custom-select" formControlName="roleEsta" name="roleEsta" id="roleEsta"
+        [(ngModel)]="EditarRoles.roleEsta">
+
+        <option [ngValue]="0">Seleccione </option>
+        <option ngValue="ACT">Activo</option>
+        <option ngValue="INACT">inactivo</option>
+
+    </select>
+            <div *ngIf="frmEditarRoles.get('roleEsta').errors" class="invalid-tooltip">
+              Este campo es obligatorio
+            </div>
+
+    </div>
+
+  </div>
+<br>
+  <div class="form-group row">
+    <label for="cat" class="col-form-label col-4">Categoría:</label>
+
+    <div class="col-8">
+
+      <select class="custom-select" formControlName="cat" name="cat" id="cat" [(ngModel)]="EditarRoles.categoria">
+
+        <option [ngValue]="0">Seleccione </option>
+        <option *ngFor="let opcion of cat" [ngValue]="opcion.cat">{{opcion.nombre}}</option>
+
+      </select>
+      <div *ngIf="frmEditarRoles.get('cat').errors" class="invalid-tooltip">
+        Este campo es obligatorio
+    </div>
+    </div>
+
+  </div>
+
+<br>
+  <div class="form-group row">
+    <label for="permosos" class="col-form-label col-4">Permisos</label>
+    <div class="col-8 ">
+
+      <div class="col " [ngClass]="{ 'alert-success': esRolesValido, 'alert-danger':esRolesValido === false }">
+        <div *ngFor="let role of menusHijos">
+          <input type="checkbox" formControlName="permisos" [id]="role.idMenu" [value]="role.idMenu"
+            [checked]="esRolSeleccionado(role.idMenu)"
+            (change)="Permisos($event, role.idMenu,role.menuMenu,role.crear,role.consultar,role.modificar)">
+          <label class="ml-2"  [for]="role.idMenu">{{ role.menuMenu}}</label>
+          <div *ngIf="esRolSeleccionado(role.idMenu)" class="ml-3">
+
+            <div *ngFor="let item of subpermisos">
+              <input type="checkbox" [id]="role.idMenu" [checked]="CampoCheckeadoPermisos(item.nombre,role.idMenu )"
+                [value]="role.idMenu"
+                (change)="subPermisos(role.idMenu,item.nombre,role.menuMenu,role.crear,role.consultar,role.modificar)">
+              {{item.nombre}}
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let rol of modulos">
+          <input
+            *ngIf="rol.menuMenu != 'Remediación' && rol.menuMenu != 'Administración' && rol.menuMenu != 'Reportes' && rol.menuMenu != 'Usuarios y Roles'"
+            type="checkbox" formControlName="permisos" [id]="rol.idMenu" [value]="rol.idMenu"
+            [checked]="esRolSeleccionado(rol.idMenu)"
+            (change)="Permisos($event, rol.idMenu,rol.menuMenu,rol.crear,rol.consultar,rol.modificar)">
+          <label
+            *ngIf="rol.menuMenu != 'Remediación' && rol.menuMenu != 'Administración' && rol.menuMenu != 'Reportes' && rol.menuMenu != 'Usuarios y Roles'"
+            [for]="rol.idMenu" class="ml-2">{{ rol.menuMenu ? rol.menuMenu : rol.idMenu }}</label>
+          <div *ngIf="esRolSeleccionado(rol.idMenu)" class="ml-3">
+            <div *ngFor="let item of subpermisos">
+              <input type="checkbox" [checked]="CampoCheckeadoPermisos(item.nombre,rol.idMenu)" [id]="item.nombre" [value]="item.nombre"
+               (change)="subPermisos(rol.idMenu,item.nombre)">
+              {{item.nombre}}
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+
+      <div *ngIf="esRolesValido===false " class="alert alert-danger ">
+        <i class="fa fa-exclamation-circle "></i> Este campo es obligatorio, marque al menos una opción
+      </div>
+    </div>
+  </div>
+
+
+  <br>
+
+  <div class="d-flex justify-content-center">
+    <button type="button" (click)="cancelar()" class="btn btn-danger ml-2"><i class="fa fa-ban"></i> Cancelar</button>
+    <button type="submit" [disabled]="!frmEditarRoles.valid" [disabled]="esRolesValido === false"
+      class="btn btn btn-success ml-2">Editar</button>
+  </div>
+</form>

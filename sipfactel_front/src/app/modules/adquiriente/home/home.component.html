@@ -1,0 +1,107 @@
+<div class="row">
+  <h4 style="margin-left: 37px;">Adquirientes</h4>
+  <span style="color: #64B7E9;">
+    <i class="fa fa-info-circle fa-lg  ml-3 mb-3" style="margin-top: 7.4px;"> </i>
+  </span>
+</div>
+
+<div *ngIf="home" class="mt-4">
+
+
+  <form class="mx-sm-4 mb-3 ">
+
+    <div class="form-group row">
+      <label for="NumDoc" class="col-form-label col-3">TIPO DE DOCUMENTO</label>
+      <div class="col-8">
+        <select class="form-control" name="tipodocumento" [(ngModel)]="tDoc">
+          <option [ngValue]="0">Seleccione </option>
+          <option *ngFor="let opcion of listaIdentificacion" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="NumDoc" class="col-form-label col-3">NÚMERO DE DOCUMENTO </label>
+      <div class="col-8">
+        <input type="text" placeholder="Identificación" [disabled]="!tDoc" [(ngModel)]="nDoc" class="form-control" maxlength="50"
+          name="NumDoc" id="NumDoc" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <label for="Nonmb" class="col-form-label col-3">NOMBRE </label>
+
+      <div class="col-8">
+        <input type="text" placeholder="Razón social" [(ngModel)]="rSocial" class="form-control" maxlength="50"
+          name="Nonmb" id="Nonmb" />
+      </div>
+    </div>
+
+    <div class="form-group row">
+      
+      <div class="col-4" style="margin-left: 34px;">
+        <button *ngIf="esConsultar"  class="btn btn-primary float-right " (click)="filtroAdquiriente()">Filtrar<i class="fa fa-filter ml-2"
+          aria-hidden="true"></i>
+      </button>
+      </div>
+     
+    </div>
+
+  </form>
+
+  <div *ngIf="tablaFiltro">
+    <div class="col-12" >
+      <tabla-filtro-buscar #tfb [paginacionService]="tablaPag.paginacionService" [lista]="opcion"
+        [($listaObservable)]="opcionesFiltro$" tablaFiltro></tabla-filtro-buscar>
+    </div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+
+          <th scope="col">Tipo documento</th>
+          <th scope="col">Número documento</th>
+          <th scope="col">Razón social</th>
+          <th scope="col">Tipo persona</th>
+          <th scope="col" *ngIf="esEditar">Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let opcion of opcionesFiltro$ | async">
+
+          <td>
+            <ngb-highlight [result]="opcion.tipoDocumento" [term]="tfb.filtroTabla.value"></ngb-highlight>
+          </td>
+
+          <td>
+            <ngb-highlight [result]="opcion.numeroIdentificacion" [term]="tfb.filtroTabla.value"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="opcion.nombrerazonsocial" [term]="tfb.filtroTabla.value"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="opcion.tipoPersona" [term]="tfb.filtroTabla.value"></ngb-highlight>
+          </td>
+          <td>
+            <button class="btn btn-primary" *ngIf="esEditar"  (click)="cargarAdquirienteEditar(opcion.id)" ngbTooltip="Editar"
+              placement="left">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+          </td>
+
+
+          <td class="text-center">
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <tabla-paginacion #tablaPag [lista]=" opcion " [($listaObservable)]=" opcionesFiltro$"></tabla-paginacion>
+  </div>
+</div>
+<!-- <div >
+  <app-editar-adquirientes [idEdicion]="idEdicion"[datosEdicion]="datosEdicion"></app-editar-adquirientes>
+</div> -->
+
+<!-- <div >
+  <app-editar-adquirientes [idEdicion]="idEdicion"[datosEdicion]="datosEdicion"></app-editar-adquirientes>
+</div> -->

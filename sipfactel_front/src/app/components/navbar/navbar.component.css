@@ -1,0 +1,26 @@
+.dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%);
+}
+#sidebar ul li.active>a, a[aria-expanded="true"] {
+  color: #fff;
+  background:none;
+}
+
+.dropdown-menu-right {
+  right: 0 !important;
+}
+.version{
+  color: rgba(0, 0, 0, 0.315);
+  font-size: 04mm;
+}
+.versioncont{
+  color: rgb(255, 255, 255);
+  font-size: 10px;
+  margin-top: -28px;
+  margin-right:-1,5%;
+
+}

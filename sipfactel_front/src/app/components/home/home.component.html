@@ -1,0 +1,33 @@
+
+<div >
+    <div class="col-12 ">
+        <tabla-filtro-buscar #tfb [paginacionService]="tablaPag.paginacionService " [lista]="permisos " [($listaObservable)]="opcionesFiltro$ "></tabla-filtro-buscar>
+    </div>
+    <table class="table table-striped table-hover table-bordered ">
+
+        <thead>
+            <tr>
+                <th scope="col ">Compañía</th>
+                <th scope="col ">Sucursal</th>
+                <th scope="col ">Descripción</th>
+            </tr>
+        </thead>
+        <tbody >
+            <tr *ngFor="let opcion of opcionesFiltro$ | async; index as i ">
+
+                <td>
+                    <ngb-highlight [result]="opcion.compania " [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.sucursal " [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.descripcion " [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+
+
+            </tr>
+        </tbody>
+    </table>
+    <tabla-paginacion #tablaPag [lista]="permisos" [($listaObservable)]="opcionesFiltro$ "></tabla-paginacion>
+</div>

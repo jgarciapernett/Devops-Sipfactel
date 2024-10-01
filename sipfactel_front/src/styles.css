@@ -1,0 +1,185 @@
+
+@font-face{
+  font-family: 'conduitositc';
+  src: url("assets/fonts/conduitositc-extralight.otf");
+  font-weight: bold;
+  font-type: cursive;
+}
+
+
+
+
+@font-face {
+  font-family: 'Myriad Pro Semibold';
+  font-style: normal;
+  font-weight: bolder;
+  src: local('Myriad Pro Semibold'), url('assets/fonts/MYRIADPRO-BOLD.woff') format('woff');
+  }
+
+
+@font-face {
+  font-family: 'Myriad Pro Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Myriad Pro Regular'), url('assets/fonts/MYRIADPRO-REGULAR.woff') format('woff');
+  }
+
+
+  h1 {
+
+    font-family:'Myriad Pro Regular' ;
+  }
+  h2 {
+
+    font-family:'Myriad Pro Regular' ;
+  }
+  h3 {
+
+    font-family:'Myriad Pro Regular' ;
+  }
+ h4 {
+
+  font-family:'Myriad Pro Regular' ;
+}
+
+span{
+  font-family:'Myriad Pro Regular' ;
+  font-weight: 200;
+}
+
+option{
+
+  font-family:'Myriad Pro Regular' ;
+}
+
+
+p {
+  font-family: 'conduitositc';
+  font-size: 1.1em;
+  font-weight: 300;
+  line-height: 1.7em;
+  color: #999;
+}
+
+label {
+  font-family:'Myriad Pro Regular' ;
+  
+}
+
+
+table > thead > tr > th {
+
+  font-family:'Myriad Pro Semibold' ;
+}
+
+table > tbody > tr > td {
+
+  font-family:'Myriad Pro Regular' ;
+}
+
+
+
+
+
+/* You can add global styles to this file, and also import other style files */
+.CampoObligatorio{color: red}
+.boletamaterial{color:red}
+
+
+
+/*#region Resaltado de filtro de búsqueda en tablas */
+
+ngb-highlight span.ngb-highlight {
+  background-color: rgb(217, 255, 0);
+}
+
+ngbd-table-complete span.ngb-highlight {
+  background-color: rgb(217, 255, 0);
+}
+
+ngbd-table-filtering span.ngb-highlight {
+  background-color: rgb(217, 255, 0);
+}
+
+/*#endregion Resaltado de filtro de búsqueda en tablas */
+
+
+/*#region Auto scrollbars para tablas */
+
+.scrolltable {
+  /* height: 34.8em; */
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.scrolltable table {
+  width: 100%;
+  position: absolute;
+}
+
+/*#endregion Auto scrollbars para tablas */
+
+
+/*#region input[type=number] sin controles spinner */
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0;
+    /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+    /* Firefox */
+}
+
+/*#endregion input[type=number] sin controles spinner */
+
+
+/*#region Ajuste de ancho de columnas de tabla con la clase fit al contenido */
+
+.table td.fit,
+.table th.fit {
+  white-space: nowrap;
+  width: 1%;
+}
+
+/*#endregion Ajuste de ancho de columnas de tabla con la clase fit al contenido */
+
+
+
+.btn-info {
+  color: #fff;
+  background-color: #006751 ;
+  border-color: #0094B3;
+}
+
+
+.btn-primary {
+  color: #fff;
+  background-color: #009B76;
+  border-color: #009B76;
+}
+
+
+.page-item.active .page-link {
+  z-index: 1;
+  color: #fff;
+  background-color: #009B76;
+  border-color: #009B76;
+}
+
+.btn:hover{
+cursor: pointer ;
+
+}
+
+/* tipografia */
+
+/* Color Elementos */
+
+#colorElementos{
+  background-color: #0B5F4C
+}

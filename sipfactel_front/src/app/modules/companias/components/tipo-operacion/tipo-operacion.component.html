@@ -1,0 +1,87 @@
+<form [formGroup]="frmAgregarTipoOperacion" class="mx-sm-4" (ngSubmit)="agregarTipoOperacion()">
+
+    <div class="form-group row">
+        <label for="ddlFacElectronica" class="col-form-label col-4">Factura Electrónica :</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="ddlFacElectronica" name="ddlFacElectronica" id="ddlFacElectronica" [(ngModel)]="operacion.facelectronica">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option *ngFor="let opcion of listaFacturaElectronica" [ngValue]="opcion.id">{{ opcion.nombre }}</option>
+
+            </select>
+
+            <div *ngIf="frmAgregarTipoOperacion.get('ddlFacElectronica').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="txtNotaDebito" class="col-form-label col-4">Nota Débito :</label>
+
+        <div class="col-8">
+            <input type="text" maxlength="50" class="form-control" name="txtNotaDebito" id="txtNotaDebito" formControlName="txtNotaDebito" [(ngModel)]="operacion.notadebito">
+
+            <div *ngIf="frmAgregarTipoOperacion.get('txtNotaDebito').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+   <br>
+    <div class="form-group row">
+        <label for="txtNotaDebitoHuerfano" class="col-form-label col-4">Nota Débito Huérfano:</label>
+
+        <div class="col-8">
+            <input type="text" maxlength="50" class="form-control" name="txtNotaDebitoHuerfano" id="txtNotaDebitoHuerfano" formControlName="txtNotaDebitoHuerfano" [(ngModel)]="operacion.notadebh">
+
+            <div *ngIf="frmAgregarTipoOperacion.get('txtNotaDebitoHuerfano').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="txtNotaCredito" class="col-form-label col-4">Nota Crédito :</label>
+
+        <div class="col-8">
+            <input type="text" maxlength="50" class="form-control" name="txtNotaCredito" id="txtNotaCredito" formControlName="txtNotaCredito" [(ngModel)]="operacion.notacredito">
+
+            <div *ngIf="frmAgregarTipoOperacion.get('txtNotaCredito').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="txtNotaCreditoHuerfano" class="col-form-label col-4">Nota Crédito Huérfano:</label>
+
+        <div class="col-8">
+            <input type="text" maxlength="50" class="form-control" name="txtNotaCreditoHuerfano" id="txtNotaCreditoHuerfano" formControlName="txtNotaCreditoHuerfano" [(ngModel)]="operacion.notacreh">
+
+            <div *ngIf="frmAgregarTipoOperacion.get('txtNotaCreditoHuerfano').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="d-flex justify-content-center mb-5 mt-5">
+        <button type="button" class="btn btn-danger mr-3" (click)="volverAtras()">Atras</button>
+        <button type="submit" [disabled]="frmAgregarTipoOperacion.invalid" class="btn btn-primary">Siguiente</button>
+    </div>
+
+</form>

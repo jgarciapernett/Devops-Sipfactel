@@ -1,0 +1,257 @@
+<br>
+<br>
+<div *ngIf="Agrego">
+    <form [formGroup]="frmDatosProveedor" class="mx-sm-4" (ngSubmit)="agregarDatosProveedor()">
+        <div class="form-group row">
+            <label for="txtCodigoPais" class="col-form-label col-4">País:</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="txtCodigoPais" name="txtCodigoPais" id="txtCodigoPais" [(ngModel)]="parametrosProveedorObj.codPais">
+        
+                <option [ngValue]="undefined" >Seleccione </option>
+                <option *ngFor="let opcion of paises" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+        
+                </select>
+                
+                <div *ngIf="frmDatosProveedor.get('txtCodigoPais').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+            </div>
+
+        </div>
+        <br>
+
+
+        <div class="form-group row">
+            <label for="txtNitProveedor" class="col-form-label col-4">Nit Proveedor Tecnológico</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtNitProveedor" id="txtNitProveedor" formControlName="txtNitProveedor" [(ngModel)]="parametrosProveedorObj.nitprovtecno">
+
+                <div *ngIf="frmDatosProveedor.get('txtNitProveedor').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtNitProveedor').errors?.maxLength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtDvProveedor" class="col-form-label col-4">Dv Proveedor Tecnológico</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtDvProveedor" id="txtDvProveedor" [(ngModel)]="parametrosProveedorObj.dvprovtecno" formControlName="txtDvProveedor" required>
+
+                <div *ngIf="frmDatosProveedor.get('txtDvProveedor').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtDvProveedor').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtSofwareID" class="col-form-label col-4">Software ID</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtSofwareID" id="txtSofwareID" [(ngModel)]="parametrosProveedorObj.softwareid" formControlName="txtSofwareID">
+
+                <div *ngIf="frmDatosProveedor.get('txtSofwareID').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtSofwareID').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtSofwareSecurityCode" class="col-form-label col-4">Software Security Code:</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtSofwareSecurityCode" id="txtSofwareSecurityCode" [(ngModel)]="parametrosProveedorObj.softseccode" formControlName="txtSofwareSecurityCode">
+
+                <div *ngIf="frmDatosProveedor.get('txtSofwareSecurityCode').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtSofwareSecurityCode').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtNitDIAN" class="col-form-label col-4">Nit DIAN:</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtNitDIAN" id="txtNitDIAN" [(ngModel)]="parametrosProveedorObj.nitdian" formControlName="txtNitDIAN">
+
+
+                <div *ngIf="frmDatosProveedor.get('txtNitDIAN').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtNitDIAN').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtDigitoDIAN" class="col-form-label col-4">Dígito verificación DIAN:</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtDigitoDIAN" id="txtDigitoDIAN" [(ngModel)]="parametrosProveedorObj.digveridian" formControlName="txtDigitoDIAN">
+
+                <div *ngIf="frmDatosProveedor.get('txtDigitoDIAN').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtDigitoDIAN').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtQRCode" class="col-form-label col-4">QRCode:</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtQRCode" id="txtQRCode" [(ngModel)]="parametrosProveedorObj.qrcode" formControlName="txtQRCode">
+
+                <div *ngIf="frmDatosProveedor.get('txtQRCode').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtQRCode').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtVersionUBL" class="col-form-label col-4">Versión UBL:</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtVersionUBL" id="txtVersionUBL" [(ngModel)]="parametrosProveedorObj.versbaseubl" formControlName="txtVersionUBL">
+
+
+                <div *ngIf="frmDatosProveedor.get('txtVersionUBL').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtVersionUBL').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="txtVersionFormato" class="col-form-label col-4">Versión Formato:</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtVersionFormato" id="txtVersionFormato" [(ngModel)]="parametrosProveedorObj.versformato" formControlName="txtVersionFormato">
+
+                <div *ngIf="frmDatosProveedor.get('txtVersionFormato').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtVersionFormato').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+
+            </div>
+
+        </div>
+        <br>
+
+
+        <div class="form-group row">
+            <label for="txtCUFE" class="col-form-label col-4">CUFE:</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtCUFE" id="txtCUFE" [(ngModel)]="parametrosProveedorObj.cufe" formControlName="txtCUFE">
+
+                <div *ngIf="frmDatosProveedor.get('txtCUFE').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtCUFE').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+            </div>
+
+
+            <br>
+
+        </div>
+        <div class="form-group row">
+            <label for="txtCantidadLineas" class="col-form-label col-4">Cantidad Lineas</label>
+
+            <div class="col-8">
+                <input type="text" class="form-control" maxlength="51" name="txtCantidadLineas" id="txtCantidadLineas" [(ngModel)]="parametrosProveedorObj.cantlineas" formControlName="txtCantidadLineas">
+
+                <div *ngIf="frmDatosProveedor.get('txtCantidadLineas').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmDatosProveedor.get('txtCantidadLineas').errors?.maxlength" class="invalid-tooltip">
+                    Maximo 50 caracteres
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        <br>
+
+        <button type="submit" class="btn btn-primary mr-3 " [disabled]="!frmDatosProveedor.valid">Guardar</button>
+
+        <br>
+        <br>
+    </form>
+</div>

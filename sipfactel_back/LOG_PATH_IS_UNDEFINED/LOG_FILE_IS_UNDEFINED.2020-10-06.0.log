@@ -1,0 +1,28 @@
+2020-10-06 14:31:18.392 ERROR 13512 --- [main] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.NullPointerException: null
+	at co.com.periferia.alfa.core.exception.UtilException.lambda$0(UtilException.java:23)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(ArrayList.java:1621)
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:658)
+	at co.com.periferia.alfa.core.exception.UtilException.inicializar(UtilException.java:22)
+	at co.com.periferia.alfa.core.CoreApplication.init(CoreApplication.java:36)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:567)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.doInvoke(ApplicationListenerMethodAdapter.java:305)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.processEvent(ApplicationListenerMethodAdapter.java:190)
+	at org.springframework.context.event.ApplicationListenerMethodAdapter.onApplicationEvent(ApplicationListenerMethodAdapter.java:153)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:172)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:165)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:139)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:403)
+	at org.springframework.context.support.AbstractApplicationContext.publishEvent(AbstractApplicationContext.java:360)
+	at org.springframework.boot.context.event.EventPublishingRunListener.running(EventPublishingRunListener.java:103)
+	at org.springframework.boot.SpringApplicationRunListeners.running(SpringApplicationRunListeners.java:77)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:330)
+	at org.springframework.boot.builder.SpringApplicationBuilder.run(SpringApplicationBuilder.java:140)
+	at co.com.periferia.alfa.core.CoreApplication.main(CoreApplication.java:31)
+
+2020-10-06 14:34:14.239 ERROR 9428 --- [http-nio-8080-exec-1] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource
+2020-10-06 14:34:14.270 ERROR 9428 --- [http-nio-8080-exec-6] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource

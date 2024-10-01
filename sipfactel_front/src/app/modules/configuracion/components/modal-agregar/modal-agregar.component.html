@@ -1,0 +1,98 @@
+<form [formGroup]="frmAgregarConfiguracion" class="mx-sm-4" (ngSubmit)="agregarConfiguracion()">
+
+    <div class="modal fade" id="agregarConfiguracionModal" tabindex="-1" role="dialog" aria-labelledby="agregarConfiguracionModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="agregarConfiguracionModalLabel">
+                        <span #Titulo>Agregar Configuración</span>
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+                <br>
+                <div class="modal-body">
+                    <div class="form-group row ">
+                        <label for="cod " class="col-form-label col-4 ">Código</label>
+
+                        <div class="col-8 ">
+                            <input type="text" formControlName="cod" class="form-control" name="cod" maxlength="100" id="cod" [(ngModel)]="this.configuracion.codigo " required>
+
+                            <div *ngIf="frmAgregarConfiguracion.get('cod').errors" class="invalid-tooltip ">
+                                Este campo es obligatorio
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="form-group row ">
+                        <label for="txtNombre " class="col-form-label col-4 ">Nombre</label>
+
+                        <div class="col-8 ">
+                            <input type="text" formControlName="txtNombre" class="form-control" name="txtNombre" maxlength="100" id="txtNombre" [(ngModel)]="this.configuracion.nombre " required>
+
+                            <div *ngIf="frmAgregarConfiguracion.get('txtNombre').errors" class="invalid-tooltip ">
+                                Este campo es obligatorio
+                            </div>
+
+                        </div>
+
+                    </div>
+                <br>
+                    <div class="form-group row ">
+                        <label for="txtSistema " class="col-form-label col-4 ">Sistema</label>
+
+                        <div class="col-8 ">
+                            <input type="text" formControlName="txtSistema" class="form-control" name="txtSistema" maxlength="100" id="txtSistema" disabled [(ngModel)]="this.configuracion.sistema" requerid>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group row">
+                        <label for="txtEstado" class="col-form-label col-4">Estado:</label>
+                        <div class="col-8">
+                            <select class="custom-select" style="size: 300px;" formControlName="txtEstado" name="txtEstado" id="txtEstado" [(ngModel)]="configuracion.estado">
+                        
+                                <option [ngValue]="undefined" selected >Seleccione</option>
+                                <option ngValue="ACT">activo</option>
+                                <option ngValue="INACT">inactivo</option>
+                                
+                            </select>
+                                    <div *ngIf="frmAgregarConfiguracion.get('txtEstado').errors" class="invalid-tooltip">
+                                        Este campo es obligatorio
+                                    </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer ">
+
+                    <button type="button " (click)="cancelar() " data-dismiss="modal" class="btn btn-danger ">
+                        <i class="fa fa-ban mr-1" aria-hidden="true"></i>
+                        Cancelar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="frmAgregarConfiguracion.invalid">
+                        <i class="fa fa-plus-circle mr-1" aria-hidden="true"></i>
+                        insertar</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>

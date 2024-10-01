@@ -1,0 +1,4 @@
+2020-09-16 14:52:15.008 ERROR 16432 --- [http-nio-8080-exec-1] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource
+2020-09-16 14:52:15.147 ERROR 16432 --- [http-nio-8080-exec-1] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource
+2020-09-16 14:53:23.147 ERROR 16432 --- [http-nio-8080-exec-3] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource
+2020-09-16 14:53:23.236 ERROR 16432 --- [http-nio-8080-exec-5] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource

@@ -1,0 +1,108 @@
+<div class="row">
+  <h4 style="margin-left: 37px;">Resolución Facturas</h4>
+  <span style="color: #64B7E9;">
+    <i class="fa fa-info-circle fa-lg  ml-3 mb-3" style="margin-top: 7.4px;"> </i>
+  </span>
+</div>
+<div>
+  <form [formGroup]="formConsulta" (ngSubmit)="verTablaResoluciones(formularioConsulta)" #formularioConsulta="ngForm">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th scope="col"> COMPAÑIA </th>
+          <th scope="col"> SUCURSAL </th>
+          <th scope="col"> PRODUCTO </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="col-8">
+              <select formControlName="lCompanias" class="custom-select" name="lCompanias" id="lCompanias">
+                <option [ngValue]="0"> seleccione </option>
+                <option *ngFor="let opcion of listaCompanias" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+              </select>
+              <div *ngIf="formConsulta.get('lCompanias').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="col-8">
+              <select class="custom-select" formControlName="lSucursales" name="lSucursales" id=lSucursales>
+                <option [ngValue]="0"> seleccione </option>
+                <option *ngFor="let opcion of listaSucursales" [ngValue]="opcion.sucu">{{opcion.nomsuc}} </option>
+              </select>
+              <div *ngIf="formConsulta.get('lSucursales').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="col-8">
+              <select class="custom-select" formControlName="lProductos" name="lProductos" id=lProductos>
+                <option [ngValue] = "0"> seleccione </option>
+                <option *ngFor="let opcion of productos" [ngValue]="opcion.idStr">{{opcion.nombre}}</option>
+              </select>
+              <div *ngIf="formConsulta.get('lProductos').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div>
+      <button *ngIf="esConsultar" tpe="submit" id="consultarFacturas" class="btn btn-primary" [disabled]="!formConsulta.valid"> Consultar
+      </button>
+      <button *ngIf="esCrear" tpe="submit" data-toggle="modal" id="crearResolucionFactura"
+        class="btn btn-primary ml-5" [disabled]="!botonConsultaPresionado" (click)="crearResolucionFacturas()"> Crear
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="mostrarTablaResoluciones" class="mt-2">
+  <table class="table table-striped table-hover table-bordered">
+    <thead>
+      <tr>
+        <th scope="col">TIPO ID </th>
+        <th scope="col">N° RESOLUCIÓN</th>
+        <th scope="col">PREFIJO</th>
+        <th scope="col">FECHA INICIO</th>
+        <th scope="col">FECHA FINAL</th>
+        <th scope="col">NÚMERO INICIAL</th>
+        <th scope="col">NÚMERO FINAL</th>
+        <th scope="col">CONTADOR</th>
+        <th *ngIf="esEditar" scope="col">EDITAR / ELIMINAR</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let resolucion of listaResolucionFacturas | paginate: { itemsPerPage: 10, currentPage: page };let indice = index">
+        <td> {{ resolucion.trTipoId }} </td>
+        <td> {{ resolucion.numeroResolucion }} </td>
+        <td> {{ resolucion.prefijo }} </td>
+        <td> {{ resolucion.fechaInicial }} </td>
+        <td> {{ resolucion.fechaFinal }} </td>
+        <td> {{ resolucion.numeroInicial }} </td>
+        <td> {{ resolucion.numeroFinal }} </td>
+        <td> {{ resolucion.contador }} </td>
+        <td *ngIf="esEditar">
+          <div class="col-12 mt-1">
+            <button (click)="editarResolucionFacturas(resolucion)" type="button" class="btn btn-primary" 
+            [disabled]="!resolucion.vigencia">
+              <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+            /
+            <button (click)="eliminarResolucionFutura(resolucion)" type="button" class="btn btn-danger"
+              [disabled]="(resolucion.vigencia && resolucion.estado == 'TRUE') || (!resolucion.vigencia && resolucion.estado == 'FALSE') || resolucion.contador >= resolucion.numeroFinal">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente">
+  </pagination-controls>
+</div>

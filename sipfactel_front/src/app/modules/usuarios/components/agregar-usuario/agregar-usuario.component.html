@@ -1,0 +1,133 @@
+<form [formGroup]="frmAgregarUsuario" class="mx-sm-4" (ngSubmit)="agregarUsuario()">
+
+    <div class="row">
+        <h4 class="m-3 mb-5">Agregar Usuarios</h4>
+        <span style="color: #62b7e9;"></span>
+        <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip="Usuarios"></i>
+    </div>
+
+    <div class="form-group row">
+        <label for="txtNombreUsuario" class="col-form-label col-4">Usuario :</label>
+
+        <div class="col-8">
+            <input type="text" class="form-control" formControlName="txtNombreUsuario" maxlength="100" name="txtNombreUsuario" id="txtNombreUsuario" [(ngModel)]="datosUsuario.usuaUsuario" >
+
+            <div *ngIf="frmAgregarUsuario.get('txtNombreUsuario').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="txtUsuarioNombres" class="col-form-label col-4">Nombres :</label>
+
+        <div class="col-8">
+            <input type="text" class="form-control" formControlName="txtUsuarioNombres" maxlength="100" name="txtUsuarioNombres" id="txtUsuarioNombres" [(ngModel)]="datosUsuario.usuaNombres" >
+
+            <div *ngIf="frmAgregarUsuario.get('txtUsuarioNombres').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="txtUsuarioApellidos" class="col-form-label col-4">Apellidos :</label>
+
+        <div class="col-8">
+            <input type="text" class="form-control" maxlength="100" name="txtUsuarioApellidos" formControlName="txtUsuarioApellidos" id="txtUsuarioApellidos" [(ngModel)]="datosUsuario.usuaApellidos" >
+
+            <div *ngIf="frmAgregarUsuario.get('txtUsuarioApellidos').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="txtUsuarioCorreo" class="col-form-label col-4">Correo :</label>
+
+        <div class="col-8">
+            <input type="email" class="form-control" maxlength="100" formControlName="txtUsuarioCorreo" pattern="[a-z0-9._%+-]+@[a-z0-9.+-]+\.[a-z]{2,3}$"  name="txtUsuarioCorreo" id="txtUsuarioCorreo" [(ngModel)]="datosUsuario.usuaCorreo" >
+
+            <div *ngIf="frmAgregarUsuario.get('txtUsuarioCorreo').errors" class="invalid-tooltip">
+            Este campo es obligatorio.
+            </div>
+
+            <div *ngIf="frmAgregarUsuario.get('txtUsuarioCorreo').errors?.pattern" class="invalid-tooltip">
+                Formato de email es invalido.
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="ddlRoles" class="col-form-label col-4">Rol :</label>
+  
+        <div class="col-8">
+  
+          <select class="custom-select" formControlName="ddlRoles" name="ddlRoles" id="ddlRoles" [(ngModel)]="datosUsuario.usuaRol"
+          >
+  
+          <option [ngValue]=0 >Seleccione </option>
+          <option *ngFor="let opcion of listaRoles" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+  
+          </select>
+
+          <div *ngIf="frmAgregarUsuario.get('ddlRoles').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+  
+        </div>
+
+    </div>
+    <br>
+
+    <div class="form-group row" >
+        <label for="ddlEstado" class="col-form-label col-4">Estado :</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="ddlEstado" name="ddlEstado" id="ddlEstado" [(ngModel)]="datosUsuario.usuaEstado">
+
+                <option [ngValue]=0 >Seleccione </option>
+                <option Value="ACT" >
+                     Activo
+                </option>
+
+                <option Value="INACT" >Inactivo
+                </option>
+            
+            </select>
+
+                <div *ngIf="frmAgregarUsuario.get('ddlEstado').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+                
+        </div>
+
+   </div> 
+   <br>
+    <div class="d-flex justify-content-center">
+
+        <button
+              type="button"
+              data-dismiss="modal" (click)="cancelar()"
+              class="btn btn-danger mr-3 mt-3">
+              <i class="fa fa-ban mr-1"></i>Cancelar
+            </button>
+        <button type="submit" class="btn btn-success mt-3" [disabled]="frmAgregarUsuario.invalid">
+              Guardar
+        </button>
+
+    </div>
+
+</form>
+<br/>

@@ -1,0 +1,62 @@
+<div>
+    <div class="row">
+        <h4 class="m-3">Configuración</h4>
+        <span style="color: #62b7e9;">
+        <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip="Configuración"></i>
+    </span>
+    </div>
+    <div class="row mb-sm-2">
+        <div class="col-6" *ngIf="mostrar">
+            <button (click)="abrirModalAgregar()" ngbTooltip="Agregar configuración"  *ngIf="esCrear" class="btn btn-primary rounded-circle"> <i class="fa fa-plus" *ngIf="esCrear"> </i></button>
+        </div>
+    </div>
+    <select class="form-control" name="tipoDocId" [(ngModel)]="opcionElegida" id="tipoDocId" (change)='obtenerDataOpciones($event)'>
+        <option  [ngValue]="0" > Seleccione</option>
+        <option *ngFor="let opcion of opcionesLista" [ngValue]="opcion.id">{{opcion.nombre}}  </option>
+    </select>
+    <br>
+    <div *ngIf="mostrar">
+        <div class="col-12">
+            <tabla-filtro-buscar #tfb [paginacionService]="tablaPag.paginacionService" [lista]="opcion" [($listaObservable)]="opcionesFiltro$"></tabla-filtro-buscar>
+        </div>
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Código</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let opcion of opcionesFiltro$ | async">
+                    <td>
+                        <ngb-highlight [result]="opcion.id" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                    </td>
+                    <th>
+                        <ngb-highlight [result]="opcion.codigo" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                    </th>
+                    <th>
+                        <ngb-highlight [result]="opcion.nombre" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                    </th>
+                    <th>
+                        <ngb-highlight [result]="opcion.estado" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                    </th>
+                    <td class="text-center">
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-primary" (click)="abrirModalEditar(opcion.id)" *ngIf="esEditar" ngbTooltip="Editar" placement="left">
+                                <i class="fa fa-pencil" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <tabla-paginacion #tablaPag [lista]="opcion" [($listaObservable)]="opcionesFiltro$"></tabla-paginacion>
+    </div>
+</div>
+
+<conf-modal-agregar (refreshLista)="obtenerDataOpciones($event)" (modalHide)="cerrarModalHide($event)" [idPadre]="this.idPadre" [campoTexto]="this.texto"></conf-modal-agregar>
+<conf-modal-editar (refreshLista)="obtenerDataOpciones($event)" (modalHide)="cerrarModalHide($event)" [configuracionEntrada]="opcionAEditar"></conf-modal-editar>

@@ -1,0 +1,115 @@
+<form [formGroup]="frmEditarHomologacion" class="mx-sm-4" (ngSubmit)="editarHomologacion()">
+
+    <div class="modal fade" id="editarHomologacionModal" tabindex="-1" role="dialog" aria-labelledby="editarHomologacionModalLabel" data-dismiss="modal" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg" role="document">
+
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="editarHomologacionModalLabel">
+                        <span #Titulo>Editar homologación</span>
+                    </h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+                </div>
+                <div class="modal-body">
+                    
+                    <div class="form-group row">
+                        <label for="txtFuente" class="col-form-label col-4">Fuente : </label>
+                
+                        <div class="col-8">
+                
+                            <select class="custom-select"  formControlName="txtFuente" name="txtFuente" id="txtFuente" [(ngModel)]="homologacion.fuente">
+                                    
+                                            <option [ngValue]="0">Seleccione </option>
+                                            <option *ngFor="let opcion of fuentes" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+                                        </select>
+                                                <div *ngIf="frmEditarHomologacion.get('txtFuente').errors" class="invalid-tooltip">
+                                                    Este campo es obligatorio
+                                                  </div>
+                                                  
+                                    </div>
+                
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="txtEstado" class="col-form-label col-4">Estado:</label>
+                        <div class="col-8">
+                            <select class="custom-select" style="size: 300px;" formControlName="txtEstado" name="txtEstado" id="txtEstado" [(ngModel)]="homologacion.estado">
+                        
+                                <option [ngValue]="undefined" selected >Seleccione</option>
+                                <option ngValue="ACT">activo</option>
+                                <option ngValue="INACT">inactivo</option>
+                                <div *ngIf="frmEditarHomologacion.get('txtEstado').errors" class="invalid-tooltip">
+                                    Este campo es obligatorio
+                                </div>
+                        
+                                </select>
+
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="txtOriginal" class="col-form-label col-4">Original:</label>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="txtOriginal" id="txtOriginal" formControlName="txtOriginal" [(ngModel)]="this.homologacion.original" required>
+                            <div *ngIf="frmEditarHomologacion.get('txtOriginal').errors " class="invalid-tooltip">
+                                Este campo es obligatorio
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="txtHomologado" class="col-form-label col-4">Homologado:</label>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="txtHomologado" id="txtHomologado" [(ngModel)]="this.homologacion.homologado" formControlName="txtHomologado">
+
+                            <div *ngIf="frmEditarHomologacion.get('txtHomologado').errors" class="invalid-tooltip">
+                                Este campo es obligatorio
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="txtDescripcion" class="col-form-label col-4">Descripción:</label>
+
+                        <div class="col-8">
+                            <input type="text" class="form-control" name="txtDescripcion" id="txtDescripcion" [(ngModel)]="this.homologacion.descripcion" formControlName="txtDescripcion">
+
+                            <div *ngIf="frmEditarHomologacion.get('txtDescripcion').errors" class="invalid-tooltip">
+                                Este campo es obligatorio
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                <br>
+                <div class="modal-footer">
+
+                    <button type="button" (click)="cancelar()" data-dismiss="modal" class="btn btn-danger"><i class="fa fa-ban mr-1"></i>Cancelar</button>
+                    <button type="submit" class="btn btn-primary" [disabled]="frmEditarHomologacion.invalid"><i class="fa fa-plus-circle mr-1"></i>Editar</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>

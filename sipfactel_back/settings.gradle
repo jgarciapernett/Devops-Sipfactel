@@ -1,0 +1,3 @@
+rootProject.name = 'factura.electronica'
+
+include 'core'

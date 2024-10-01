@@ -1,0 +1,45 @@
+<div class="row" *ngIf="tituloHome">
+    <h4 class="mr-3 ml-4" style="margin-top:20px; margin-bottom:15px">Parámetros</h4>
+
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip=" pantalla de seleccion parametros a agregar"></i>
+    </span>
+</div>
+
+<div class="row" *ngIf="tituloGenerales">
+    <h4 class="mr-3 ml-4" style="margin-top:20px; margin-bottom:15px">Parámetros Datos Generales</h4>
+
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip=" pantalla agregar datos generales"></i>
+    </span>
+</div>
+
+<div class="row" *ngIf="tituloProveedor">
+    <h4 class="mr-3 ml-4" style="margin-top:20px; margin-bottom:15px">Parámetros Datos Proveedor</h4>
+
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip=" pantalla  agregar datos Proveedor"></i>
+    </span>
+</div>
+<div class=" container mb-8 ">
+    <ul class="nav nav-tabs ">
+        <li>
+            <button *ngIf="esConsultar" class="nav-item nav-link btn active  " [ngStyle]="cambioDeFondoAgregarDG?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} " (click)="obtenerFormularioAgregarDatosGenerales()">Datos Generales</button>
+        </li>
+        <li>
+            <button *ngIf="esConsultar" class="nav-item nav-link btn active ml-2 " [ngStyle]="cambioDeFondoAgregarDP?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} " (click)=" obtenerFormularioAgregarDatosProveedor()">Datos Proveedor</button>
+        </li>
+        <hr>
+        <li>
+            <button style="margin-right: -9%;" *ngIf="cancelar" class="btn btn-outline-danger active float-right" (click)="botonCancelar()" triggers="mouseenter:mouseleave" ngbTooltip="Cancelar" popoverTitle="Cancelar"><i class="fa fa-times " aria-hidden="true"></i></button>
+        </li>
+    </ul>
+</div>
+
+
+<div *ngIf="EsAgregar != undefined">
+    <app-datos-generales (dato)="AgregarDatosGenerales($event)" *ngIf="this.paso === 1"></app-datos-generales>
+</div>
+<div *ngIf="EsAgregar2 != undefined">
+    <app-datos-proveedor (proveedor)="AgregarDatosProveedor($event)" *ngIf="this.paso ===2"></app-datos-proveedor>
+</div>

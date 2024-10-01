@@ -1,0 +1,253 @@
+<div class="row">
+    <h4 class=" ml-4 mr-3" style="margin-top:20px; margin-bottom:15px">Pólizas Errores ETL Editar</h4>
+
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-" ngbTooltip=" pantalla de editar pólizas errores ETL"></i>
+    </span>
+</div>
+<div class=" container mb-8 ">
+    <ul class="nav nav-tabs ">
+        <li>
+            <button class="nav-item nav-link btn active  " [ngStyle]="formularioTransaccion?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} " (click)="detalleTransaccion()">Detalle Transaccion</button>
+        </li>
+        <li>
+            <button class="nav-item nav-link btn active ml-2 " [ngStyle]="formularioAdquiriente?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} " (click)="detalleAdquiriente()">Detalle Adquiriente</button>
+        </li>
+        <li>
+            <button class="nav-item nav-link btn active ml-2 " [ngStyle]="formulariofactura?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} " (click)="detalleFactura()">Detalle Factura</button>
+        </li>
+        <hr>
+        <li>
+            <button style="margin-right: -9px;" class="btn btn-outline-danger active float-right" ngbTooltip="Cancelar" (click)="botonCancelar()" triggers="mouseenter:mouseleave"><i class="fa fa-times " aria-hidden="true"></i></button>
+        </li>
+    </ul>
+</div>
+
+<br>
+
+<form *ngIf="formulariouno">
+    <div class="form-group row">
+        <label for="tipoTransa" class="col-sm-2 col-form-label">Tipo Transacción:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="tipoTransa" id="tipoTransa" [(ngModel)]="datosTransaccion.valor" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Fac" class="col-sm-2 col-form-label">Factura:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Fac" id="Fac" [(ngModel)]="datosTransaccion.envionumdocumento" disabled>
+
+        </div>
+    </div>
+
+
+    <div class="form-group row">
+        <label for="Transacción" class="col-sm-2 col-form-label">Transacción:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Transacción" id="Transacción" [(ngModel)]="datosTransaccion.transaccionid" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Ref" class="col-sm-2 col-form-label">Referencia:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Ref" id="Ref" [(ngModel)]="datosTransaccion.facturanumdoc" disabled>
+
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label for="Mres" class="col-sm-2 col-form-label">Mensaje Respuesta:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Mres" id="Mres" [(ngModel)]="datosTransaccion.errormensaje" disabled>
+
+        </div>
+    </div>
+
+    <button class="btn btn-primary" (click)="siguienteAdquiriente()">Siguiente</button>
+
+</form>
+
+
+<form *ngIf="formulariodos">
+    <div class="form-group row">
+        <label for="tipoTransa" class="col-sm-2 col-form-label">Tipo Documento:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="tipoTransa" id="tipoTransa" [(ngModel)]="datosAdquiriente.codtipoidentificacion" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Fac" class="col-sm-2 col-form-label">Numero Documento:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Fac" [(ngModel)]="datosAdquiriente.numidentificacion" id="Fac" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Ncredito" class="col-sm-2 col-form-label">Nombre Adquitriente:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Ncredito" id="Ncredito" [(ngModel)]="datosAdquiriente.nombre" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Ndebito" class="col-sm-2 col-form-label">Dirección:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Ndebito" id="Ndebito" [(ngModel)]="datosAdquiriente.direccion" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Transacción" class="col-sm-2 col-form-label">Nombre Ciudad:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Transacción" id="Transacción" [(ngModel)]="datosAdquiriente.nombreciudad" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Ref" class="col-sm-2 col-form-label">Nombre Departamento:</label>
+
+        <div class="col-sm-10">
+            <input type="text" class="form-control" name="Ref" id="Ref" [(ngModel)]="datosAdquiriente.nombredepartamento" disabled>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-rigth">
+        <div>
+            <button class="btn btn btn-danger ml-2" (click)="atrasTransaccion()">Atras</button>
+        </div>
+        <div>
+
+            <button class="btn btn-primary ml-2" (click)="siguienteFactura()">Siguiente</button>
+
+        </div>
+    </div>
+
+</form>
+
+<form *ngIf="formulariotres" [formGroup]="frmEditarAdquirientes" (ngSubmit)="editarDatos()">
+    <div class="form-group row">
+        <label for="cantidad" class="col-sm-2 col-form-label">Cantidad :</label>
+
+        <div class="col-sm-10">
+            <input type="text"  class="form-control" name="cantidad" id="cantidad" [(ngModel)]="datosFactura.cantidad" disabled>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="linea" class="col-sm-2 col-form-label">Descripción Linea:</label>
+
+        <div class="col-sm-10">
+            <input type="text" formControlName="linea" class="form-control" name="linea" [(ngModel)]="datosFactura.descripcion" id="linea">
+
+            <div *ngIf="frmEditarAdquirientes.get('linea').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+        </div>
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="valor" class="col-sm-2 col-form-label">Valor:</label>
+
+        <div class="col-sm-10">
+            <input type="number" formControlName="valor" class="form-control" name="valor" [(ngModel)]="datosFactura.valor" id="valor">
+
+            <div *ngIf="frmEditarAdquirientes.get('valor').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="iva" class="col-sm-2 col-form-label">Valor IVA:</label>
+
+        <div class="col-sm-10">
+            <input type="number" formControlName="iva" class="form-control" name="iva" [(ngModel)]="datosFactura.valoriva" id="iva">
+
+            <div *ngIf="frmEditarAdquirientes.get('iva').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="tasa" class="col-sm-2 col-form-label">Tasa Iva : </label>
+
+        <div class="col-sm-10">
+
+            <select class="custom-select" required formControlName="tasa" name="tasa" id="tasa" [(ngModel)]="datosFactura.tasaiva">
+                    
+                            <option [ngValue]="0" >Seleccione </option>
+                            <option *ngFor="let opcion of porcentajes" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+                        </select>
+                                <div *ngIf="frmEditarAdquirientes.get('tasa').errors" class="invalid-tooltip">
+                                    Este campo es obligatorio
+                                  </div>
+                                  
+                    </div>
+
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="SubIva" class="col-sm-2 col-form-label">Subtotal IVA:</label>
+
+        <div class="col-sm-10">
+            <input type="text" formControlName="SubIva" class="form-control" name="SubIva" [(ngModel)]="datosFactura.subtotaliva" id="SubIva">
+
+            <div *ngIf="frmEditarAdquirientes.get('SubIva').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+        </div>
+          </div>
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="SubValor" class="col-sm-2 col-form-label">Subtotal Valor:</label>
+
+        <div class="col-sm-10">
+            <input type="text" formControlName="SubValor" class="form-control" [(ngModel)]="datosFactura.subtotalvalor" name="SubValor">
+            <div *ngIf="frmEditarAdquirientes.get('SubValor').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="form-group row">
+        <label for="total" class="col-sm-2 col-form-label">Total:</label>
+
+        <div class="col-sm-10">
+            <input type="text" formControlName="total" class="form-control" name="total" [(ngModel)]="datosFactura.total" id="total">
+
+            <div *ngIf="frmEditarAdquirientes.get('total').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-rigth">
+        <div>
+            <button class="btn btn btn-danger ml-2" (click)="detalleAdquiriente()">Atras</button>
+        </div>
+        <div>
+            <button type="submit" [disabled]="!frmEditarAdquirientes.valid" class="btn btn btn-primary ml-2"><i class="fa fa-plus-circle mr-1"></i>Guardar</button>
+        </div>
+    </div>
+
+</form>
+
+

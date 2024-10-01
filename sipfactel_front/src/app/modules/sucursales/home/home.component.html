@@ -1,0 +1,60 @@
+<div class="row">
+    <h4 class="m-3">Sucursales</h4>
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip="Sucursales"></i>
+</span>
+</div>
+
+
+<div class="row mb-sm-2">
+        <button ngbTooltip="Agregar Sucursal" name="agregarSucursal" id="circle-plus" *ngIf="esCrear"  (click)="obtenerFormulario()" class="btn btn-primary rounded-circle ml-3" ><i class="fa fa-plus"></i></button>
+</div>
+
+
+
+
+<div>
+    <div class="col-12">
+        <tabla-filtro-buscar #tfb [paginacionService]="tablaPag.paginacionService" [lista]="opcion" [($listaObservable)]="opcionesFiltro$"></tabla-filtro-buscar>
+    </div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">SUCURSAL</th>
+                <th scope="col">DEPARTAMENTO</th>
+                <th scope="col">CIUDAD</th>
+                <th scope="col">DIRECCIÓN</th>
+                <th scope="col">CÓDIGO</th>
+                <th scope="col" *ngIf="esEditar" >EDITAR</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let opcion of opcionesFiltro$ | async">
+                <td>
+                    <ngb-highlight [result]="opcion.nomsuc" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.nomdepart" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.nomciudad" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.direccion" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td width="50px">
+                    <ngb-highlight [result]="opcion.sucu" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td class="text-center" width="50px">
+                    <div class="btn-group btn-group-sm">
+                        <button class="btn btn-primary" *ngIf="esEditar"   ngbTooltip="Editar Sucursal" (click)="obtenerFormularioEditar(opcion.sucu)">
+                             <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <tabla-paginacion #tablaPag [lista]="opcion" [($listaObservable)]=" opcionesFiltro$"></tabla-paginacion>
+</div>

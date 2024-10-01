@@ -1,0 +1,86 @@
+<br>
+<br>
+<div *ngIf="Agrego">
+    <form [formGroup]="frmDatosGenerales" class="mx-sm-4" (ngSubmit)="agregaDatosGenerales()">
+<!-- 
+        <div class="form-group row">
+            <label for="txtcodPais" class="col-form-label col-4">Cod País:</label>
+
+            <div class="col-8">
+
+                <select class="form-control" formControlName="txtcodPais" name="txtcodPais" id="txtcodPais" [(ngModel)]="parametrosGeneralesObj.codPais">
+            
+                    <option [ngValue]="undefined" selected >Seleccione </option>
+                    <option *ngFor="let opcion of pais" [ngValue]="opcion.id" >{{opcion.id}}</option>
+            
+                    </select>
+
+                    <div *ngIf="frmDatosGenerales.get('txtcodPais').errors?.required" class="invalid-tooltip">
+                        Este campo es obligatorio
+                    </div>
+            </div>
+
+        </div> -->
+
+        <div class="form-group row">
+            <label for="txtnombrePais" class="col-form-label col-4">País:</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="txtnombrePais" name="txtnombrePais" id="txtnombrePais" [(ngModel)]="parametrosGeneralesObj.nomPais">
+        
+                <option [ngValue]="undefined" selected  >Seleccione </option>
+                <option *ngFor="let opcion of pais" [ngValue]="opcion.nombre" >{{opcion.nombre}}</option>
+        
+                </select>
+                
+                <div *ngIf="frmDatosGenerales.get('txtnombrePais').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="txtmoneda" class="col-form-label col-4">Moneda:</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="txtmoneda" name="txtmoneda" id="txtmoneda" [(ngModel)]="parametrosGeneralesObj.moneda">
+        
+                <option [ngValue]="undefined" selected  >Seleccione </option>
+                <option *ngFor="let opcion of moneda" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+        
+                </select>
+                <div *ngIf="frmDatosGenerales.get('txtmoneda').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="txtambiente" class="col-form-label col-4">Ambiente:</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="txtambiente" name="txtambiente" id="txtambiente" [(ngModel)]="parametrosGeneralesObj.ambiente">
+        
+                <option [ngValue]="undefined" selected  >Seleccione </option>
+                <option *ngFor="let opcion of ambiente" [ngValue]="opcion.id" >{{opcion.nombre}}</option>
+        
+                </select>
+                <div *ngIf="frmDatosGenerales.get('txtambiente').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" [disabled]="!frmDatosGenerales.valid">Guardar</button>
+    </form>
+</div>

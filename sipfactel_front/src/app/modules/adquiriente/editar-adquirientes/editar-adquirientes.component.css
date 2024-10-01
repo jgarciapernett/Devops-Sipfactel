@@ -1,0 +1,23 @@
+ngb-tabset ul.nav-tabs li a.nav-link.active {
+    background-color: gray;
+    color: white;
+  display: none;
+ 
+
+}
+
+ngb-tabset ul.nav-tabs li a.nav-link {
+  background-color: #237361;
+  color: white;
+
+
+}
+
+
+ngb-tabset ul.nav-tabs .nav-link.disabled{
+    background-color: gray;
+    color: white;
+    
+
+
+}

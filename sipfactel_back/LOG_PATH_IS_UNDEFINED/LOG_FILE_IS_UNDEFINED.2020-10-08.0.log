@@ -1,0 +1,2 @@
+2020-10-08 12:19:14.981 ERROR 19032 --- [http-nio-8080-exec-1] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource
+2020-10-08 12:19:15.057 ERROR 19032 --- [http-nio-8080-exec-4] c.c.p.a.c.j.JwtAuthenticationEntryPoint  : Responding with unauthorized error. Message - Full authentication is required to access this resource

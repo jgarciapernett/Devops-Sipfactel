@@ -1,0 +1,10 @@
+diff a/core/src/main/java/co/com/periferia/alfa/core/services/impl/CreacionJsonNotasServiceImpl.java b/core/src/main/java/co/com/periferia/alfa/core/services/impl/CreacionJsonNotasServiceImpl.java	(rejected hunks)
+@@ -25,8 +25,6 @@
+ import co.com.periferia.alfa.core.dto.ReceptoresDTO;
+ import co.com.periferia.alfa.core.exception.ExcepcionSegAlfa;
+ import co.com.periferia.alfa.core.exception.UtilException;
+-import co.com.periferia.alfa.core.model.EmitirDelcopModel;
+-import co.com.periferia.alfa.core.model.ErrorInternoModel;
+ import co.com.periferia.alfa.core.model.NotaDebitoCreditoModel;
+ import co.com.periferia.alfa.core.repository.ErrorInternoRepository;
+ import co.com.periferia.alfa.core.repository.NotaDebitoCreditoRepository;

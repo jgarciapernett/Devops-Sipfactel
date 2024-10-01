@@ -1,0 +1,99 @@
+<div class="row">
+  <h4 style="margin-left: 37px;">Resolución Notas</h4>
+  <span style="color: #64B7E9;">
+    <i class="fa fa-info-circle fa-lg  ml-3 mb-3" style="margin-top: 7.4px;"> </i>
+  </span>
+</div>
+<div>
+  <form [formGroup]="formConsulta" (ngSubmit)="verFormulario(formularioConsulta)" #formularioConsulta="ngForm">
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th scope="col"> COMPAÑIA </th>
+          <th scope="col"> SUCURSAL </th>
+          <th scope="col"> PRODUCTO </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="col-8">
+              <select formControlName="lCompanias" class="custom-select" name="lCompanias" id="lCompanias">
+                <option [ngValue]="0"> seleccione </option>
+                <option *ngFor="let opcion of listaCompanias" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+              </select>
+              <div *ngIf="formConsulta.get('lCompanias').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="col-8">
+              <select class="custom-select" formControlName="lSucursales" name="lSucursales" id=lSucursales>
+                <option [ngValue]="0"> seleccione </option>
+                <option *ngFor="let opcion of listaSucursales" [ngValue]="opcion.sucu">{{opcion.nomsuc}} </option>
+              </select>
+              <div *ngIf="formConsulta.get('lSucursales').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </td>
+          <td>
+            <div class="col-8">
+              <select class="custom-select" formControlName="lProductos" name="lProductos" id=lProductos>
+                <option [ngValue]="0"> seleccione </option>
+                <option *ngFor="let opcion of productos" [ngValue]="opcion.idStr">{{opcion.nombre}}</option>
+              </select>
+              <div *ngIf="formConsulta.get('lProductos').errors" class="invalid-tooltip">
+                Este campo es obligatorio
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="esConsultar">
+      <button type="submit" id="consultarNotas" class="btn btn-primary" [disabled]="!formConsulta.valid"> Consultar
+      </button>
+    </div>
+  </form>
+</div>
+
+
+<br>
+<table *ngIf="mostrarDebitoCredito" class="table table-striped table-hover table-bordered">
+  <thead>
+    <tr>
+      <th scope="col"> Resolucion Credito </th>
+      <th scope="col"> Resolucion Debito </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <div class="col-8 text-center">
+          <button type="button" id="consultarNotasCredito" class="btn btn-primary" (click)="mostrarTabla(tipoCredito)">
+            Consultar
+          </button>
+        </div>
+      </td>
+      <td>
+        <div class="col-8 text-center">
+          <button type="button" id="consultarNotasDebito" class="btn btn-primary" (click)="mostrarTabla(tipoDebito)">
+            Consultar
+          </button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<app-tabla-resoluciones *ngIf="tablaNotas != null"
+[notas]="tablaNotas"
+[compania]="compania"
+[sucursal]="sucursal"
+[producto]="producto"
+[tipoNota]="tipoNotaConsultada"
+[esCrear]="esCrear"
+[esEditar]="esEditar"
+(reiniciarServicio) = "reiniciarServicio($event)"></app-tabla-resoluciones>

@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: jlcgldap
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: angie.camelo
+Implementation-Vendor-Id: demo.jlcg.ldap
+Build-Jdk: 1.8.0_221
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

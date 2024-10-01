@@ -1,0 +1,5 @@
+{
+    "urlBaseServicio": "https://facturaelectronicaqa.segurosalfa.net:9443/core-0.0.1-SNAPSHOT",
+    "esAutorizacionesActivadas": false,
+    "listaNegra": ["/api/auth/signin", "/api/auth/logout"]
+}

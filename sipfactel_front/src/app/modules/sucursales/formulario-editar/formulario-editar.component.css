@@ -1,0 +1,31 @@
+.fechaSpan{
+    font-size: 12px;
+        margin-left: 10px;
+    margin-top: 9px;
+    display: block;
+    width: 100px;
+}
+
+
+.companiaSeleccionada{
+    font-size: 10px;
+    margin-top: 9px;
+    display: block;
+    width: auto;
+}
+
+td{
+    padding: 1%;
+    position: relative;
+    max-width: 150px;
+    /* max-height: 300px; */
+}
+span{
+    font-size: 12px;
+    margin-left: 10px;
+    text-align: center;
+    word-wrap: break-word;
+}
+th{
+    padding: 10px;
+}

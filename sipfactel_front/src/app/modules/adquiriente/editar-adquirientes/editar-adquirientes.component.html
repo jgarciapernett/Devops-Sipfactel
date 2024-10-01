@@ -1,0 +1,524 @@
+<div class="row">
+  <h4 style="margin-left: 37px; margin-bottom: 32px;">Adquirientes</h4>
+  <span style="color: #64B7E9;">
+    <i class="fa fa-info-circle fa-lg  ml-3 mb-3"  ngbTooltip=" pantalla editar adquiriente" style="margin-top: 7.4px;"> </i>
+  </span>
+</div>
+
+<accordion [isAnimated]="true">
+  <form [formGroup]="form">
+    <accordion-group heading="Datos Generales">
+      <div class="form-group row">
+        <label for="Persona" class="col-form-label col-4">Tipo Persona:</label>
+        <div class="col-8">
+          <input
+            class="form-control"
+            name="tipoPersona"
+            id="tipoPersona"
+            formControlName="tipoPersona"
+          />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="Razon" class="col-form-label col-4"
+          >Razón Social del Adquiriente:</label
+        >
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="201"
+            name="Razon"
+            formControlName="razonSocial"
+            id="Razon"
+          />
+          <div
+            *ngIf="form.get('razonSocial').errors?.required"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+          <div
+            *ngIf="form.get('razonSocial').errors?.maxlength"
+            class="invalid-tooltip"
+          >
+            Maximo 200 caracteres
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="Nit" class="col-form-label col-4"
+          >Nit del Adquiriente:</label
+        >
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="50"
+            name="Nit"
+            id="Nit"
+            formControlName="nit"
+            disabled
+          />
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <label for="TipoDoc" class="col-form-label col-4"
+          >Tipo de Documento del Adquiriente:</label
+        >
+        <div class="col-8">
+          <input
+            class="form-control"
+            name="TipoDoc"
+            id="TipoDoc"
+            formControlName="tipoDocumento"
+            disabled
+          />
+        </div>
+      </div>
+
+      <br />
+      <div class="form-group row mb-5">
+        <br />
+        <br />
+        <br />
+        <label for="ddlObligFiscales" class="col-form-label col-4"
+          >Obligaciones fiscales :
+        </label>
+        <div class="col-8">
+          <div
+            class="col"
+            [ngClass]="{
+              'alert-success': esObligacionValido,
+              'alert-danger': esObligacionValido == false
+            }"
+          >
+            <div *ngFor="let obli of listaobligacionesFiscales">
+              <input
+                type="checkbox"
+                minlength="1"
+                [id]="obli.id"
+                [value]="obli.id"
+                [checked]="esObligacionSeleccionada(obli.id)"
+                (change)="
+                  Obligaciones($event, obli.id, obli.nombre, obli.idStr)
+                "
+              />
+              <label [for]="obli.id">{{
+                obli.nombre ? obli.nombre : obli.id
+              }}</label>
+            </div>
+          </div>
+          <div *ngIf="esObligacionValido == false" class="alert alert-danger">
+            <i class="fa fa-exclamation-circle"></i> Este campo es obligatorio,
+            marque al menos una opción
+          </div>
+        </div>
+      </div>
+    </accordion-group>
+    <accordion-group heading="Datos Ubicación">
+      <div class="form-group row">
+        <label for="IDPais" class="col-form-label col-4">País :</label>
+        <div class="col-8">
+          <select
+            class="custom-select"
+            name="IDPais"
+            id="IDPais"
+            formControlName="pais"
+            (change)="cambioPais()"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option *ngFor="let opcion of listaPaises" [ngValue]="opcion.id">
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div *ngIf="form.get('pais').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <div class="form-group row">
+        <label for="IDCiudad" class="col-form-label col-4">Ciudad :</label>
+        <div class="col-8">
+          <select
+            class="custom-select"
+            name="IDCiudad"
+            id="IDCiudad"
+            formControlName="ciudad"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option *ngFor="let opcion of listaCiudades" [ngValue]="opcion.id">
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div *ngIf="form.get('ciudad').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <div class="form-group row">
+        <label for="Departamento" class="col-form-label col-4"
+          >Departamento:</label
+        >
+
+        <div class="col-8">
+          <select
+            class="custom-select"
+            name="Departamento"
+            id="Departamento"
+            formControlName="departamento"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option
+              *ngFor="let opcion of listaDepartamentos"
+              [ngValue]="opcion.id"
+            >
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div *ngIf="form.get('departamento').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="Dirección" class="col-form-label col-4">Dirección:</label>
+
+        <div class="col-8">
+          <input
+            type="text"
+            placeholder="Ej:Dg 45 # 23"
+            class="form-control"
+            maxlength="201"
+            name="Dirección"
+            id="Dirección"
+            formControlName="direccion"
+            required
+          />
+          <div
+            *ngIf="form.get('direccion').errors?.required"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+          <div
+            *ngIf="form.get('direccion').errors?.maxlength"
+            class="invalid-tooltip"
+          >
+            Maximo 200 caracteres
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <div class="form-group row">
+        <label for="Postal" class="col-form-label col-4">Código postal:</label>
+
+        <div class="col-8">
+          <select
+            class="custom-select"
+            id="postal"
+            name="Postal"
+            formControlName="codigoPostal"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option *ngFor="let opcion of codPostal" [ngValue]="opcion.id">
+              {{ opcion.nombre }} - {{ opcion.codpostal }}
+            </option>
+          </select>
+          <div *ngIf="form.get('codigoPostal').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="NomContac" class="col-form-label col-4"
+          >Nombre Contacto:</label
+        >
+
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Contacto"
+            maxlength="201"
+            name="NomContac"
+            id="NomContac"
+            formControlName="nombreContacto"
+          />
+          <div
+            *ngIf="form.get('nombreContacto').errors?.required"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+          <div
+            *ngIf="form.get('nombreContacto').errors?.maxlength"
+            class="invalid-tooltip"
+          >
+            Maximo 200 caracteres
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="email" class="col-form-label col-4">Correo:</label>
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Email"
+            maxlength="201"
+            name="Email"
+            id="email"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.+-]+\.[a-z]{2,3}$"
+            formControlName="correo"
+          />
+          <div
+            *ngIf="form.get('correo').errors?.required"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="form.get('correo').errors?.email" class="invalid-tooltip">
+            Formato de email es invalido.
+          </div>
+          <div
+            *ngIf="form.get('correo').errors?.maxlength"
+            class="invalid-tooltip"
+          >
+            maximo 200 caracteres.
+          </div>
+          <div
+            *ngIf="form.get('correo').errors?.pattern"
+            class="invalid-tooltip"
+          >
+            Formato de email es invalido.
+          </div>
+        </div>
+      </div>
+
+      <br />
+      <div class="form-group row">
+        <label for="Telefono" class="col-form-label col-4">Teléfono:</label>
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            maxlength="50"
+            id="Telefono"
+            name="Telefono"
+            formControlName="telefono"
+            pattern="^[0-9]+"
+          />
+          <div
+            *ngIf="form.get('telefono').errors?.required"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+          <div
+          *ngIf="form.get('telefono').errors?.pattern"
+          class="invalid-tooltip"
+        >
+          Formato numerico requerido
+        </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="AreaP" class="col-form-label col-4">Área Pertenece</label>
+        <div class="col-8">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Area"
+            maxlength="201"
+            id="AreaP"
+            name="areaP"
+            formControlName="areaPertenece"
+          />
+          <div
+            *ngIf="form.get('areaPertenece').errors?.required"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+          <div
+            *ngIf="form.get('areaPertenece').errors?.maxlength"
+            class="invalid-tooltip"
+          >
+            maximo 200 caracteres
+          </div>
+        </div>
+      </div>
+      <br />
+    </accordion-group>
+    <accordion-group heading="Datos de Envio">
+      <div class="form-group row">
+        <label for="fac" class="col-form-label col-4"
+          >Facturador Electrónico</label
+        >
+        <div class="col-8">
+          <select
+            class="custom-select"
+            formControlName="facturadorElectronico"
+            id="fac"
+            [ngClass]="{ 'is-ivalid': form.value.facturadorelectronico == 0 }"
+            name="fac"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option [ngValue]="1">Si</option>
+            <option [ngValue]="2">No</option>
+          </select>
+          <div
+            *ngIf="form.value.facturadorelectronico == 0"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="FacElec" class="col-form-label col-4"
+          >Autoriza la entrega FE Electrónica Email:</label
+        >
+        <div class="col-8">
+          <select
+            class="custom-select"
+            formControlName="autorizaEntregaEmail"
+            id="FacElec"
+            name="FacElec"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option
+              *ngFor="let opcion of listaFacElectronica"
+              [ngValue]="opcion.id"
+            >
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div
+            *ngIf="form.get('autorizaEntregaEmail').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="xml" class="col-form-label col-4">Quiere recibir XML</label>
+        <div class="col-8">
+          <select
+            class="custom-select"
+            name="xml"
+            id="xml"
+            formControlName="recibeXml"
+            [ngClass]="{ 'is-invalid': form.value.recibeXml == 0 }"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option [ngValue]="1">Si</option>
+            <option [ngValue]="2">No</option>
+          </select>
+          <div *ngIf="form.value.recibeXml == 0" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+
+      <div class="form-group row">
+        <label for="desha" class="col-form-label col-4">Deshabilitado</label>
+        <div class="col-8">
+          <select
+            class="custom-select"
+            formControlName="deshabilitado"
+            name="desha"
+            id="desha"
+            [ngClass]="{ 'is-invalid': form.value.deshabilitado == 0 }"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option [ngValue]="1">Si</option>
+            <option [ngValue]="2">No</option>
+          </select>
+          <div
+            *ngIf="form.get('deshabilitado').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="txttributo" class="col-form-label col-4">Tributo</label>
+        <div class="col-8">
+          <select
+            class="custom-select"
+            formControlName="tributo"
+            name="txtTributo"
+            id="txttributo"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option *ngFor="let opcion of Tributo" [ngValue]="opcion.id">
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div
+            *ngIf="form.get('tributo').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="form-group row">
+        <label for="txtregimen" class="col-form-label col-4">Régimen</label>
+        <div class="col-8">
+          <select
+            class="custom-select"
+            formControlName="regimen"
+            name="txtRegimen"
+            id="txtregimen"
+          >
+            <option [ngValue]="0">Seleccione</option>
+            <option *ngFor="let opcion of regimenes" [ngValue]="opcion.id">
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div
+            *ngIf="form.get('regimen').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <br />
+    </accordion-group>
+  </form>
+</accordion>
+<br>
+<div class="d-flex justify-content-rigth">
+  <div>
+    <button
+      type="button"
+      class="btn btn-primary"
+    (click)="preguntar()">
+      Guardar<i class="fa fa-floppy-o ml-2" aria-hidden="true"></i>
+    </button>
+  </div>
+</div>
+

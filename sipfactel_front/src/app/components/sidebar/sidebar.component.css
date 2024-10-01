@@ -1,0 +1,99 @@
+#sidebar {
+    height: 100vh;
+    background-color: #0b5f4c;
+    box-shadow: 0 0 11px black;
+  }
+  
+  #sidebar ul.menu li a.opcion-raiz,
+  #sidebar ul.menu li.menu-padre a.opcion-padre {
+    font-size: 0.9em;
+    font-weight: bold;
+    background-color: #1c9b83;
+    box-shadow: 2px 2px 11px white;
+  }
+  
+  #sidebar ul.menu li a .icono.left {
+    float: left;
+    margin-right: 10px;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    background-color: #1c9b83;
+    box-shadow: 0 0 11px white;
+  }
+  
+  #sidebar ul.menu li.menu-padre a.opcion-padre .icono.right {
+    float: right !important;
+    margin-left: 10px;
+    margin-top: 0.2em;
+    margin-bottom: 0.2em;
+    background-color: #1c9b83;
+    box-shadow: 0 0 11px white;
+  }
+  
+  #sidebar ul.menu li.menu-padre ul {
+    overflow: hidden;
+    background-color: #1c9b83;
+    box-shadow: 0 0 11px white;
+  }
+  
+  .scrollable {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .scrollable p:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+  
+  .scrollable::-webkit-scrollbar-thumb:active {
+    background-color: #d4d4d4;
+  }
+  
+  .scrollable::-webkit-scrollbar-thumb:hover {
+    background: d4d4d4;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  .scrollable::-webkit-scrollbar-track {
+    background: d4d4d4;
+    border-radius: 4px;
+  }
+  .scrollable::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  /* Estilos barra (thumb) de scroll */
+  .scrollable::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+  }
+  
+  .scrollable::-webkit-scrollbar-track:hover,
+  .scrollable::-webkit-scrollbar-track:active {
+    background: #0B5F4C;
+  }
+  
+  .imagen {
+      width: 226px;
+      margin-top: 22px;
+      margin-left: 2%;
+      border-bottom: 0.5px solid gray;
+      margin-bottom: 12px;
+  }
+  
+  .titulo1 {
+    color: white;
+    text-align: center;
+    font-size: unset;
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+  
+  .titulo2 {
+    color: white;
+    font-size: unset;
+    text-align: center;
+    font-weight: bold;
+  }
+  

@@ -1,0 +1,117 @@
+<div class="row">
+    <h4 class=" ml-4 mr-3" style="margin-top:20px; margin-bottom:15px">Pólizas Errores ETL</h4>
+
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-" ngbTooltip=" pantalla de pólizas"></i>
+    </span>
+</div>
+
+<div>
+    <form [formGroup]="frmPolizas" class="form-row">
+        <div class="form-group col-md-6">
+            <label for="Npoliza" class="col-form-label col-4">N° Póliza</label>
+            <div class="col-8">
+                <input type="text" formControlName="Npoliza" class="form-control" maxlength="50" [(ngModel)]="numPoliza" name="Npoliza" id="Npoliza" />
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="Nfac" class="col-form-label col-4">N° Documento</label>
+            <div class="col-8">
+                <input type="text" formControlName="Nfac" class="form-control" maxlength="50" [(ngModel)]="numFac" name="Nfac" id="Nfac" />
+            </div>
+        </div>
+        
+
+        <button class="btn btn-primary ml-4" *ngIf="esConsultar" (click)="filtroBusqueda()">Filtrar<i class="fa fa-filter" aria-hidden="true"></i></button>
+
+    </form>
+</div>
+
+<hr>
+<br>
+
+<div>
+    <div class="col-12">
+        
+        <tabla-filtro-buscar #tfb [paginacionService]="tablaPag.paginacionService" [lista]="polizas" [($listaObservable)]="opcionesFiltro$"></tabla-filtro-buscar>
+    </div>
+ 
+<br>
+    <table class="table table-striped" *ngIf="tabla" >
+        <thead>
+            <tr>
+                <th scope="col">Número de póliza</th>
+                <th scope="col">Número documento</th>
+                <th scope="col">Documento persona</th>
+                <th scope="col">Tipo factura</th>
+                <th scope="col">Fecha Emisión</th>
+                <th scope="col">Fecha Inserción</th>
+                <th scope="col">Categoría</th>
+                <th scope="col">Causa</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col" *ngIf="esEditar">Operación</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let opcion of opcionesFiltro$ | async">
+                <td>
+                    <ngb-highlight [result]="opcion.numpoliza" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.numdocumento" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>    
+                    <ngb-highlight [result]="opcion.numpersona" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                    
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.tipomovimiento" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+               
+
+                <td>
+                    <ngb-highlight [result]="opcion.fechaemision | date: 'dd/MM/yyy' " [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.fechainsercion" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>
+                    <select class="form-control"  name="Persona" id="Persona" [(ngModel)]="opcion.categoria" [ngClass]="{'is-invalid': opcion.categoria == 0, 'is.valid': opcion.categoria != 0}"
+                    >
+
+                  <option [ngValue]="0">Seleccione </option>
+                  <option *ngFor="let opcion of cat" [ngValue]="opcion.cat">{{opcion.nombre}}</option>
+             </select>
+
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.mensaje" [term]="tfb.filtroTabla.value"></ngb-highlight>
+                </td>
+                <td>
+                    <textarea class="form-control mt-1" type="textarea" [ngClass]="{'is-invalid': opcion.observacion === '' || opcion.observacion === null , 'is-valid': opcion.observacion != '' || opcion.observacion != null}" [(ngModel)]="opcion.observacion">
+
+                       
+                    </textarea>
+                </td>
+                
+
+                <td class="text-center" *ngIf="esEditar">
+                    <!-- [disabled]="opcion.tabla == 'tbl_Personas'" -->
+                    <div class="btn-group btn-group-sm ">
+                        <button *ngIf="esEditar"  class="btn btn-primary ml-2" [disabled]="opcion.tabla === 'tbl_Personas'"  (click)="FormularioEditar(opcion.idtabla,opcion.numpoliza,opcion.tabla,opcion.tipomovimiento)" ngbTooltip="Editar" placement="left"> <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </button>
+
+                        <!-- <button (click)="remediarRegistro(opcion.errorid,opcion.iderror,opcion.idtabla,opcion.tabla)"  class="btn btn-primary ml-2" ngbTooltip="Remediar" placement="left"><i class="fa fa-share-square-o" aria-hidden="true"></i>
+                        </button> -->
+
+                        <button (click)="Recategorizar(opcion.categoria,opcion.iderror,opcion.observacion)"  class="btn btn-primary ml-2"  [disabled]="opcion.observacion === '' || opcion.observacion === null || opcion.categoria == 0"  ngbTooltip="Categorizar" placement="left"><i class="fa fa-list" aria-hidden="true"></i>
+                        </button>
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <tabla-paginacion #tablaPag [lista]="polizas" [($listaObservable)]=" opcionesFiltro$"></tabla-paginacion>
+</div>

@@ -1,0 +1,123 @@
+<div class="row">
+    <h4 class="mr-3 ml-3" style="margin-top:20px; margin-bottom:15px">Agregar Roles</h4>
+
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip=" pantalla de agregar Roles"></i>
+    </span>
+</div>
+<form [formGroup]="frmAgregarRoles" class="mx-sm-" (ngSubmit)="agregarRoles()">
+
+    <div class="form-group row">
+        <label for="roleNombre" class="col-form-label col-4">Nombre Rol:</label>
+
+        <div class="col-8">
+            <input type="text" maxlength="101" class="form-control" name="roleNombre" id="roleNombre" formControlName="roleNombre" [(ngModel)]="Roles.roleNombre">
+
+            <div *ngIf="frmAgregarRoles.get('roleNombre').errors?.required" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+            <div *ngIf="frmAgregarRoles.get('roleNombre').errors?.maxlength" class="invalid-tooltip">
+                Maximo 100 caracteres
+            </div>
+
+        </div>
+
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="roleDescripcion" class="col-form-label col-4">Descripción:</label>
+
+        <div class="col-8">
+            <textarea type="textarea" style="resize: vertical;" maxlength="101" class="form-control" name="roleDescripcion" id="roleDescripcion" formControlName="roleDescripcion" [(ngModel)]="Roles.roleDescripcion">
+            </textarea>
+            <div *ngIf="frmAgregarRoles.get('roleDescripcion').errors?.required" class="invalid-tooltip">
+                Este campo es obligatorio
+            </div>
+
+            <div *ngIf="frmAgregarRoles.get('roleDescripcion').errors?.maxlength" class="invalid-tooltip">
+                Maximo 100 caracteres
+            </div>
+
+
+        </div>
+
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="roleEsta" class="col-form-label col-4">Estado:</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="roleEsta" name="roleEsta" id="roleEsta" [(ngModel)]="Roles.roleEsta">
+    
+            <option [ngValue]="0">Seleccione </option>
+            <option ngValue="ACT" >Activo</option>
+            <option ngValue="INACT" >inactivo</option>
+        </select>
+        
+        <div *ngIf="frmAgregarRoles.get('roleEsta').errors" class="invalid-tooltip">
+            Este campo es obligatorio
+        </div>
+
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="cat" class="col-form-label col-4"  >Categoría:</label>
+
+        <div class="col-8">
+
+            <select class="custom-select" formControlName="cat" name="cat" id="cat" [(ngModel)]="Roles.categoria"
+               >
+
+            <option [ngValue]= 0 >Seleccione </option>
+            <option *ngFor="let opcion of cat" [ngValue]="opcion.cat">{{opcion.nombre}}</option>
+        </select>
+                <div *ngIf="frmAgregarRoles.get('cat').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+        </div>
+
+    </div>
+    <br>
+    <div class="form-group row">
+        <label for="permosos" class="col-form-label col-4">Permisos</label>
+        <div class="col-8 ">
+            <div class="col " [ngClass]="{ 'alert-success': esRolesValido === true, 'alert-danger':esRolesValido === false }">
+                <div *ngFor="let role of menusHijos" >
+                    <input   type="checkbox"  [id]="role.idMenu" [value]="role.idMenu" [checked]="esRolSeleccionado(role.idMenu)" (change)="Permisos($event, role.idMenu,role.menuMenu,role.crear,role.consultar,role.modificar)">
+                    <label class="ml-2"c [for]="role.idMenu">{{ role.menuMenu}}</label>
+                    <div *ngIf="esRolSeleccionado(role.idMenu)" class="ml-3" >
+                        <div *ngFor="let item of subpermisos"> 
+                            <input type="checkbox" [id]="item.nombre" [value]="item.nombre" (change)="subPermisos(role.idMenu,item.nombre,role.menuMenu,role.crear,role.consultar,role.modificar)">
+                            {{item.nombre}}
+                        </div>
+                    </div>
+                </div>
+                <div *ngFor="let rol of permisos"  >
+                    <input  [ngClass]="{  'mt-2' : rol.menuMenu == 'Configuración','mt-2' : rol.menuMenu == 'Homologación','mt-2' : rol.menuMenu == 'Auditoría'}" *ngIf="rol.menuMenu != 'Remediación' && rol.menuMenu != 'Administración' && rol.menuMenu != 'Reportes' && rol.menuMenu != 'Usuarios y Roles'" type="checkbox"  [id]="rol.idMenu" [value]="rol.idMenu" [checked]="esRolSeleccionado(rol.idMenu)" (change)="Permisos($event, rol.idMenu,rol.menuMenu,rol.crear,rol.consultar,rol.modificar)" >
+                    <label class="ml-2" *ngIf="rol.menuMenu != 'Remediación' && rol.menuMenu != 'Administración' && rol.menuMenu != 'Reportes' && rol.menuMenu != 'Usuarios y Roles'"    class="ml-2"[for]="rol.idMenu">{{ rol.menuMenu}}</label>
+                    <div *ngIf="esRolSeleccionado(rol.idMenu)" class="ml-3" >
+                        <div *ngFor="let item of subpermisos">
+                            <input type="checkbox" [id]="item.nombre" [value]="item.nombre" (change)="subPermisos(rol.idMenu,item.nombre,rol.menuMenu,rol.crear,rol.consultar,rol.modificar)">
+                            {{item.nombre}}
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div *ngIf="esRolesValido===false " class="alert alert-danger ">
+                <i class="fa fa-exclamation-circle "></i> Este campo es obligatorio, marque al menos una opción
+            </div>
+        </div>    
+    </div>
+         
+        
+        <div class="d-flex justify-content-center ">
+            <button type="button " (click)="cancelar()" class="btn btn-danger ml-2 "><i class="fa fa-ban "></i> Cancelar</button>
+
+        <button type="submit " [disabled]="!frmAgregarRoles.valid || esRolesValido != true " class="btn btn btn-success ml-2 ">Guardar</button>
+    </div>
+</form>

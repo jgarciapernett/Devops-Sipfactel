@@ -1,0 +1,127 @@
+pipeline{
+    agent any
+    
+    stages{
+        
+         
+        stage('Descarga Repositorio'){
+            steps{
+                git branch: 'desarrollo', url: 'PeriferiaItGroupTFS@vs-ssh.visualstudio.com:v3/PeriferiaItGroupTFS/Seguros%20Alfa/FacturacionElectronicaQABack'
+                //git branch: 'RC_1.0.0', url: 'PeriferiaItGroupTFS@vs-ssh.visualstudio.com:v3/PeriferiaItGroupTFS/Seguros%20Alfa/FacturacionElectronicaQABack'
+                //git branch: 'RC_2.0.0_Sprint4', url: 'PeriferiaItGroupTFS@vs-ssh.visualstudio.com:v3/PeriferiaItGroupTFS/Seguros%20Alfa/FacturacionElectronicaQABack'
+                //git branch: 'RC_3.0.0_Sprint5', url: 'PeriferiaItGroupTFS@vs-ssh.visualstudio.com:v3/PeriferiaItGroupTFS/Seguros%20Alfa/FacturacionElectronicaQABack'
+                //git branch: 'release', url: 'PeriferiaItGroupTFS@vs-ssh.visualstudio.com:v3/PeriferiaItGroupTFS/Seguros%20Alfa/FacturacionElectronicaQABack'
+                //git branch: 'hotfix/RC_1.0.0', url: 'PeriferiaItGroupTFS@vs-ssh.visualstudio.com:v3/PeriferiaItGroupTFS/Seguros%20Alfa/FacturacionElectronicaQABack'
+                //git branch: 'Demoavvillas', url: 'PeriferiaItGroupTFS@vs-ssh.visualstudio.com:v3/PeriferiaItGroupTFS/Seguros%20Alfa/FacturacionElectronicaQABack'
+                //git branch: 'release', credentialsId: 'credencialesAZUREfactElectronica', url: 'https://periferiaitgrouptfs.visualstudio.com/Seguros%20Alfa/_git/FacturacionElectronicaQA'
+                //git branch: 'RC_3.0.0_Sprint5', credentialsId: 'repofrontdevcolfuturo', url: 'https://periferiaitgrouptfs.visualstudio.com/Seguros%20Alfa/_git/FacturacionElectronicaQABack'
+                //git branch: 'RC_3.0.0_Sprint5', credentialsId: 'fc7fd4eb-28fb-4e90-a4a9-4e776143b4f8', url: 'https://periferiaitgrouptfs.visualstudio.com/Seguros%20Alfa/_git/FacturacionElectronicaQABack'
+                sh 'pwd'
+            }
+            
+        }
+        stage('Compilar'){
+            steps{
+                sh 'pwd'
+                sh 'ls'
+               sh '/opt/gradle/gradle-6.0.1/bin/gradle clean bootWar'
+            }
+        }
+        stage('Creacion y Descomprime'){
+            steps{
+                 sh 'ls'
+                 sh 'pwd'
+                sh script:'''
+                cd /var/opt/war
+                pwd
+                jar -xf /var/lib/jenkins/workspace/seguros_alfa/factura_electronica/QA-FactElectronica-maq30/facelback-weblogic_original/core/build/libs/core-0.0.1-SNAPSHOT.war
+                ls
+                '''
+            }
+            
+         }
+        stage('CopiarArchivos'){
+          steps{
+              
+              sh 'cd ..'
+              sh 'cp /home/desarrollo/alfaback/FacturacionElectronicaQABack/weblogic.xml /var/opt/war/WEB-INF'
+              sh 'pwd'
+              sh 'rm /var/opt/war/WEB-INF/classes/application.yml'
+              sh 'cp /home/desarrollo/alfaback/FacturacionElectronicaQABack/application.yml /var/opt/war/WEB-INF/classes/'
+              
+              sh script:'''
+              ls
+              pwd
+              cd /var/opt/war
+              pwd
+              cd WEB-INF
+              pwd
+              cp /var/lib/jenkins/workspace/seguros_alfa/factura_electronica/QA-FactElectronica-maq30/facelback-weblogic_original/weblogic.xml .
+              ls
+              cd ..
+              pwd
+              '''
+          }
+        }
+        stage('Comprimir'){
+            steps{
+                sh script:'''
+                cd /var/opt/war
+                pwd
+               jar -cf /var/lib/jenkins/workspace/seguros_alfa/factura_electronica/QA-FactElectronica-maq30/facelback-weblogic_original/core/build/libs/core-0.0.1-SNAPSHOT_modificado.war .
+              ls -la
+               pwd 
+               cd ..
+               cd ..
+               cd lib/jenkins/workspace/seguros_alfa/factura_electronica/QA-FactElectronica-maq30/facelback-weblogic_original
+               
+                '''  
+                stash includes: 'core/build/libs/core-0.0.1-SNAPSHOT_modificado.war', name: 'core-0.0.1-SNAPSHOT_modificado.war'
+               }
+        }
+           
+     
+  /* stage('CopiarRutaWeblogic'){
+     steps{
+         sh script:'''
+         cd ..
+         docker cp /var/lib/jenkins/workspace/seguros_alfa/factura_electronica/facelback-weblogic/core/build/libs/core-0.0.1-SNAPSHOT.war 1271fe241dc8:/u01/oracle/user_projects/domains/base_domain/servers/AdminServer/
+         '''
+     }}*/
+     
+        stage('Despliegue'){
+        agent { label 'nodo30' }
+            steps{
+            unstash 'core-0.0.1-SNAPSHOT_modificado.war'
+            sh "pwd"
+            sh "ls -la"
+       //   sh "cp /home/desarrollo/Oracle/Oracle_Home/user_projects/domains/base_domain/"
+            sh "mv core/build/libs/core-0.0.1-SNAPSHOT_modificado.war /home/desarrollo/carp-prueba"
+            sh script:'''
+    
+            cd /home/desarrollo/carp-prueba/
+            mv core-0.0.1-SNAPSHOT_modificado.war core-0.0.1-SNAPSHOT.war
+
+            '''
+
+            sh "cp /home/desarrollo/Oracle/Oracle_Home/user_projects/domains/base_domain/core-0.0.1-SNAPSHOT.war /home/desarrollo/Oracle/Oracle_Home/user_projects/domains/Weglogic-backup/"
+
+            sh "cp /home/desarrollo/carp-prueba/core-0.0.1-SNAPSHOT.war /home/desarrollo/Oracle/Oracle_Home/user_projects/domains/base_domain/ "
+         
+         
+         
+     
+       }  
+     } 
+    
+ 
+      /*  stage('OWASP') {
+            steps {
+                sh 'export PATH=/sbin:/bin:/usr/sbin:/usr/bin'
+                sh '/var/lib/snapd/snap/zaproxy/5/zap.sh -cmd -quickurl http://172.168.10.30:7001/#/login/inicio -quickprogress -quickout /var/lib/snapd/snap/zaproxy/out.xml'
+            }
+        }
+     */
+    
+  }
+}

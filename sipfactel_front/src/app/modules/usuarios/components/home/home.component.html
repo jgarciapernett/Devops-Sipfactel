@@ -1,0 +1,102 @@
+<div [@fadeIn]>
+
+    <div class="row" >
+        <h4 class="m-3 mb-3">Usuarios</h4>
+            <i style="color: #62b7e9;" class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip="Usuarios"></i>
+    </div>
+
+    <div class="row mb-2">
+    
+        <div class="col-6" >
+            <button (click)="obtenerFormularioAgregar()" *ngIf="esCrear" ngbTooltip="Agregar Usuario" class="btn btn-primary rounded-circle" > <i class="fa fa-plus"> </i></button>
+        </div>
+    
+    </div>
+    
+    <div class="ml-4 mt-0  mr-6">
+        <form class="form-inline" [formGroup]="frmBusqueda">
+            <div class="form-group">
+                <label for="usuaUsuario" class="col-form-label ">Nombre Usuario:</label>
+
+                <div class="col-8">
+                    <input type="text" maxlength="51" class="form-control" minlength="3" name="usuaUsuario" id="usuaUsuario" formControlName="usuaUsuario" [(ngModel)]="txtBuscar" maxlength="50" placeholder="Nombre Usuario">
+
+                    
+                    
+                    <div *ngIf="frmBusqueda.get('usuaUsuario').errors?.minlength" class="invalid-tooltip">
+                        Minimo 3 caracteres
+                    </div>
+                    <div *ngIf="frmBusqueda.get('usuaUsuario').errors?.maxlength" class="invalid-tooltip">
+                        Maximo 50 caracteres
+                    </div>
+                </div>
+
+            </div>
+            <button class="btn btn-primary" (click)="obtenerTablaUsuarios()" *ngIf="esConsultar" ngbTooltip="Buscar Usuario" data-placement="top" [disabled]="!frmBusqueda.valid"  type="button">Buscar   <i class="fa fa-search " aria-hidden="true "></i></button>
+            <button *ngIf="botonDesactivado" type="button" class="btn btn-sm btn-primary ml-3" Tooltip="Descarga Usuarios" ngbTooltip="Descarga Usuarios" id="colorElementos" (click)="descargarExcelUsuarios()" ><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+
+
+        </form>
+        <br>
+        <br>
+
+    </div>
+    
+        <div class="row-4">
+            
+            <div class="col-12 ">
+                <tabla-filtro-buscar #tfb [paginacionService]="tablaPag.paginacionService " [lista]="usuarios " [($listaObservable)]="usuariosFiltro$ "></tabla-filtro-buscar>
+            </div>
+            <table class="table table-striped table-hover table-bordered" id="tabla">
+                <thead>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nombres </th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col">Correo</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col" *ngIf="esEditar" >Operaciones</th>
+                </thead>
+                <tbody>
+                    <tr  *ngFor="let usuario of usuariosFiltro$ | async; index as i">
+                        <td>
+                            <ngb-highlight [result]="usuario.usuaUsuario"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="usuario.usuaNombres"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="usuario.usuaApellidos"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="usuario.nombreRol"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="usuario.usuaCorreo"></ngb-highlight>
+                        </td>
+                        <td>
+                            <ngb-highlight [result]="usuario.usuaEstado"></ngb-highlight>
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group btn-group-sm">
+                                <button class="btn btn-primary"  ngbTooltip="Editar Usuario" (click)="obtenerFormularioEditar(usuario.usuaUsua)" *ngIf="esEditar" placement="left">
+                                    
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+    
+            <tabla-paginacion #tablaPag [lista]="usuarios" [($listaObservable)]="usuariosFiltro$"></tabla-paginacion>
+
+        </div>
+
+    <div class="row" *ngIf="mostrarFormularios === true">
+        <usuarios-agregar (esAgregar)="obtenerFormularioAgregar($event)"  ></usuarios-agregar>
+    </div>
+    <div class="row" *ngIf="mostrarFormularios === true">
+        <usuarios-home></usuarios-home>
+    </div>
+</div>

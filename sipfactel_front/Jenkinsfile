@@ -1,0 +1,62 @@
+pipeline{
+    agent any
+        
+        environment {
+        def prefijo="segufrt"
+        def ejecucionActual="ejecucionActual"
+        }
+        stages{
+            stage('Build') {
+                steps{
+
+                    sh 'sudo -s'
+                    sh 'export PATH=/sbin:/bin:/usr/sbin:/usr/bin'
+                    sh 'anterior=$[BUILD_NUMBER-1]'
+                    sh 'prefijo=segufrt'
+                    sh 'ejecucionActual=$(docker ps |grep "$prefijo"Container|cut -f1 -d/ )'
+                    sh 'echo actualmente con la ejecucion $BUILD_NUMBER, ejecucion anterior $anterior'
+                    sh 'echo Ejecucion actual $ejecucionActual'
+                    sh 'echo actualmente con la ejecucion $BUILD_NUMBER'
+                }
+            }
+
+            stage('Build image') {
+                steps{
+                    //Construccion de la imagen a apartir de los cambios generados
+                    sh """docker build -t "$prefijo"angular:$BUILD_NUMBER ."""
+                }
+            }
+
+            stage('Delete Build') {
+                steps{
+                    //Detiene la ejecucion anterior
+                    sh """
+                    if [ ! -z "$ejecucionActual"]
+                    then
+                    docker stop $ejecucionActual
+                    fi
+                    """
+                }
+            }
+
+            stage('Start Container') {
+                steps{
+                    //Iniciar el contenedor
+                    sh """docker run -i -p 8110:80 --name "$prefijo"Container$BUILD_NUMBER -d "$prefijo"angular:$BUILD_NUMBER"""
+                }
+            }
+
+            stage('Delete Container') {
+                steps{
+                    //Eliminar el contenedor para dejar el nuevo
+                    sh """
+                    if [ ! -z "$ejecucionActual"]
+                    then
+                    docker rm $ejecucionActual
+                    fi
+                    """
+                    //Verificar si se elimina la imagen anterior del repo de imagenes de docker
+            } 
+        }
+    }
+}

@@ -1,0 +1,293 @@
+<div class="row">
+  <h4
+    class="mr-3"
+    style="margin-top: 17px; margin-bottom: 25px; margin-left: 29px"
+  >
+    Reporte por estado
+  </h4>
+  <span style="color: #62b7e9">
+    <i
+      class="fa fa-info-circle fa-lg mt-4 mb-3"
+      ngbTooltip=" pantalla consulta de reporte"
+    ></i>
+  </span>
+</div>
+<div class="container">
+  <form [formGroup]="frmReporte" (ngSubmit)="obtenerReporte()">
+    <div class="row">
+      <div class="input-group col-3">
+        <label for="tptrans">Estado transacción</label>
+        <div class="input-group mb-4">
+          <select
+            class="custom-select"
+            name="Estadotrans"
+            [(ngModel)]="estado"
+            id="Estadotrans"
+            formControlName="Estadotrans"
+          >
+            <option [ngValue]="undefined" selected>Seleccione</option>
+            <option *ngFor="let opcion of estados" [ngValue]="opcion.id">
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div
+            *ngIf="frmReporte.get('Estadotrans').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+      <div class="form-group col-3">
+        <label for="d2">Fecha inicial</label>
+        <div class="input-group">
+          <input
+            class="form-control"
+            [maxDate]="Date"
+            name="d2"
+            [(ngModel)]="fechaIni"
+            ngbDatepicker
+            #d2="ngbDatepicker"
+            formControlName="fechaIni"
+            placeholder="dd/mm/yy"
+          />
+
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary calendar"
+              ngbTooltip="Calendario"
+              (click)="d2.toggle()"
+              type="button"
+            >
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div
+            *ngIf="frmReporte.get('fechaIni').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-3">
+        <label for="d2">Fecha final</label>
+        <div class="input-group mb-2">
+          <input
+            class="form-control"
+            [minDate]="fechaIni"
+            [maxDate]="Date"
+            name="d3"
+            [(ngModel)]="fechaFin"
+            ngbDatepicker
+            #d3="ngbDatepicker"
+            formControlName="fechaFin"
+            placeholder="dd/mm/yy"
+          />
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary calendar"
+              ngbTooltip="Calendario"
+              (click)="d3.toggle()"
+              type="button"
+            >
+              <i class="fa fa-calendar" aria-hidden="true"></i>
+            </button>
+          </div>
+          <div
+            *ngIf="frmReporte.get('fechaFin').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group col-3">
+        <label for="poliza">N° póliza</label>
+        <div class="input-group mb-4">
+          <input
+            class="form-control"
+            placeholder="Póliza"
+            formControlName="poliza"
+            [(ngModel)]="numPoliza"
+            maxlength="41"
+          />
+          <div
+            *ngIf="frmReporte.get('poliza').errors?.maxlength"
+            class="invalid-tooltip"
+          >
+            Maximo 40 caracteres
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group col-2">
+        <label for="transaccion">N° transacción</label>
+        <div class="input-group mb-4">
+          <input
+            class="form-control"
+            placeholder="Transacción"
+            name="transaccion"
+            maxlength="41"
+            [(ngModel)]="numTransa"
+            formControlName="Ntransaccion"
+          />
+          <div
+            *ngIf="frmReporte.get('Ntransaccion').errors?.maxlength"
+            class="invalid-tooltip"
+          >
+            Maximo 40 caracteres
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group col-3">
+        <label for="compania">Compañía</label>
+        <div class="input-group mb-4">
+          <select
+            class="custom-select"
+            name="compania"
+            [(ngModel)]="companiaSe"
+            id="compania"
+            formControlName="companias"
+          >
+            <option [ngValue]="undefined" selected>Seleccione</option>
+            <option *ngFor="let opcion of companias" [ngValue]="opcion.id">
+              {{ opcion.nombre }}
+            </option>
+          </select>
+          <div
+            *ngIf="frmReporte.get('companias').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <div class="input-group col-3">
+        <label for="sucursal">Sucursal</label>
+        <div class="input-group mb-4">
+          <select
+            class="custom-select"
+            name="tptrans"
+            [(ngModel)]="sucursal"
+            id="tptrans"
+            formControlName="sucursal"
+          >
+            <option [ngValue]="undefined" selected>Seleccione</option>
+            <option *ngFor="let opcion of sucursales" [ngValue]="opcion.sucu">
+              {{ opcion.nomsuc }}
+            </option>
+          </select>
+          <div
+            *ngIf="frmReporte.get('sucursal').errors"
+            class="invalid-tooltip"
+          >
+            Este campo es obligatorio
+          </div>
+        </div>
+      </div>
+
+      <div class="col-2" style="margin-top: 35px">
+        <button
+          *ngIf="esConsultar"
+          type="submit"
+          [disabled]="!frmReporte.valid"
+          class="btn btn-sm btn-primary ml-2"
+          Tooltip="Consultar"
+          ngbTooltip="Consultar"
+        >
+          Consultar <i class="fa fa-search ml-1" aria-hidden="true "></i>
+        </button>
+
+        <button
+          (click)="descargarExcelReporte()"
+          *ngIf="esConsultar"
+          type="button"
+          class="btn btn-sm btn-success ml-2"
+          [disabled]="botonExcel"
+          Tooltip="Ver detalles"
+          ngbTooltip="Ver detalles"
+        >
+          <i class="fa fa-file-excel-o" aria-hidden="true"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+
+  <div>
+    <div class="col-12">
+      <tabla-filtro-buscar
+        #tfb
+        [paginacionService]="tablaPag.paginacionService"
+        [lista]="Reporte"
+        [($listaObservable)]="opcionesFiltro$"
+      ></tabla-filtro-buscar>
+    </div>
+    <table class="table table-striped table-hover table-bordered">
+      <thead>
+        <tr>
+          <th scope="col ">Estado transacción</th>
+          <th scope="col ">Fecha transacción</th>
+          <th scope="col ">N° póliza</th>
+          <th scope="col ">N° transacción</th>
+          <th scope="col ">Compañía</th>
+          <th scope="col ">Sucursal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let opcion of opcionesFiltro$ | async">
+          <td>
+            <ngb-highlight
+              [result]="opcion.estado"
+              [term]="tfb.filtroTabla.value"
+            ></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight
+              [result]="opcion.fechaTransaccion | date : 'dd/MM/yyyy'"
+              [term]="tfb.filtroTabla.value"
+            >
+            </ngb-highlight>
+          </td>
+
+          <td>
+            <ngb-highlight
+              [result]="opcion.numPoliza"
+              [term]="tfb.filtroTabla.value"
+            ></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight
+              [result]="opcion.numTransaccion"
+              [term]="tfb.filtroTabla.value"
+            ></ngb-highlight>
+          </td>
+
+          <td>
+            <ngb-highlight
+              [result]="opcion.compania"
+              [term]="tfb.filtroTabla.value"
+            >
+            </ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight
+              [result]="opcion.sucursal"
+              [term]="tfb.filtroTabla.value"
+            >
+            </ngb-highlight>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <tabla-paginacion
+      #tablaPag
+      [lista]="Reporte"
+      [($listaObservable)]="opcionesFiltro$"
+    ></tabla-paginacion>
+  </div>
+</div>

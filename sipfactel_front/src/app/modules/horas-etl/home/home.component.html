@@ -1,0 +1,48 @@
+<div class="row">
+  <h4 class="m-3">Horas Ejecución Etl</h4>
+  <span style="color: #62b7e9">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip="Horas Ejecucion Etl"></i>
+  </span>
+</div>
+
+<div>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">Hora</th>
+        <th *ngIf="esEditar" scope="col">Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let hora of horas">
+        <td>
+          <input type="time" [disabled]="!esEditar || habilitarHora(hora)" [(ngModel)]="hora.hora">
+        </td>
+        <td *ngIf="esEditar" class="text-center" width="50px">
+          <div class="btn-group btn-group-sm">
+            <button
+              *ngIf="hora.estado == 'ACT'"
+              class="btn btn-primary"
+              (click)="cambiarEstado(hora, 'INA')"
+              >
+              activo
+            </button>
+            <button
+              *ngIf="hora.estado == 'INA'"
+              class="btn btn-danger"
+              (click)="cambiarEstado(hora, 'ACT')"
+              >
+              inactivo
+            </button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<button *ngIf="esEditar"
+              class="btn btn-primary"
+              (click)="orden()">
+              GUARDAR
+            </button>

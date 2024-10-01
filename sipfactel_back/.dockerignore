@@ -1,0 +1,11 @@
+
+.git
+.gitignore
+
+azure-pipelines.yml
+.idea
+.gradle
+.dockerignore
+Dockerfile
+
+build

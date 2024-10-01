@@ -1,0 +1,13 @@
+
+td{
+    padding: 1%;
+    position: relative;
+    max-width: 150px;
+    /* max-height: 300px; */
+}
+
+span{
+    text-align: center;
+    word-wrap: break-word;
+
+}

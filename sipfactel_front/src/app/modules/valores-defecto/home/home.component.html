@@ -1,0 +1,299 @@
+<div  >
+<div class="row"  >
+    <h4 style="margin-left: 37px; margin-bottom: 32px;">Valores Por Defecto</h4>
+    <span style="color: #64B7E9;">
+      <i class="fa fa-info-circle fa-lg  ml-3 mb-3"  ngbTooltip=" pantalla editar valores por defecto"style="margin-top: 7.4px;"> </i>
+    </span>
+  </div>
+
+  <hr>
+  <div class=" container mb-8 " *ngIf="esConsultar"   >
+    <ul class="nav nav-tabs ">
+      <li>
+        <button class="nav-item nav-link btn active "
+        [ngStyle]="formularioAdquiriente1?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} "
+        (click)="detalleFormulario1()">Datos Generales</button>
+      </li>
+      <li>
+        <button class="nav-item nav-link btn active ml-2 "
+        [ngStyle]="formularioAdquiriente2?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} "
+        (click)="siguienteAdquiriente()" [disabled]="!frmEditarDatosGenerales.valid">Datos Ubicación</button>
+      </li>
+      <li>
+        <button class="nav-item nav-link btn active ml-2 "
+        [ngStyle]="formularioAdquiriente3?{ 'background-color': '#006751', 'color': 'white'} : { 'background-color': 'transparent'} "
+        (click)="detalleFactura()" [disabled]="!frmEditarDatos.valid ||!frmEditarDatosGenerales.valid ">Datos
+        de Envío</button>
+      </li>
+      <hr>
+      <li>
+        <!-- <button style="margin-right: -9px;" class="btn btn-outline-danger active float-right" ngbTooltip="Cancelar"
+          (click)="botonCancelar()" triggers="mouseenter:mouseleave"><i class="fa fa-times "
+          aria-hidden="true"></i></button> -->
+        </li>
+      </ul>
+    </div>
+    
+    <div *ngIf="esEditar || esConsultar" >
+    <form  [formGroup]="frmEditarDatosGenerales" class="mx-sm-4 mt-4 mb-5" *ngIf="formUno">
+ 
+    <div class="form-group row">
+        <label for="Razon" class="col-form-label col-4">Razón Social del Adquiriente:</label>
+    
+        <div class="col-8">
+          <input type="text" formControlName="Razon" class="form-control" maxlength="201" name="Razon" id="Razon"
+            [(ngModel)]="razon" />
+          <div *ngIf="frmEditarDatosGenerales.get('Razon').errors?.required" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+          <div *ngIf="frmEditarDatosGenerales.get('Razon').errors?.maxlength" class="invalid-tooltip">
+            Maximo 200 caracteres
+          </div>
+        </div>
+    </div>
+    <br>
+  <div class="form-group row mb-5">
+      
+    <label for="ddlObligFiscales"  class="col-form-label col-4">Obligaciones fiscales : </label>
+          <div class="col-8  " >
+              <div class="col " [ngClass]="{ 'alert-success': esObligacionValido, 'alert-danger':esObligacionValido === false }">
+                  <div *ngFor="let obli of listaobligacionesFiscales">
+                      <input type="checkbox"  minlength="1" [id]="obli.id" [value]="obli.id" [checked]="esObligacionSeleccionada(obli.id)" (change)="Obligaciones($event, obli.id,obli.nombre,obli.idStr)">
+                      <label [for]="obli.id">{{ obli.nombre ? obli.nombre : obli.id }}</label>
+                     
+                  </div>
+  
+              </div>
+              <div *ngIf="esObligacionValido===false " class="alert alert-danger ">
+                  <i class="fa fa-exclamation-circle "></i> Este campo es obligatorio, marque al menos una opción
+              </div>
+          </div>
+  </div>
+ 
+
+          <br>
+          <button class="btn btn-primary" *ngIf="esConsultar" (click)="siguienteAdquiriente()" [disabled]="!frmEditarDatosGenerales.valid || esObligacionValido != true"   
+          >Siguiente</button>
+      
+  </form>
+
+
+  <form [formGroup]="frmEditarDatos" class="mx-sm-4 mt-4 mb-4" *ngIf="formDos">
+      
+    <div class="form-group row">
+        <label for="IDCiudad" class="col-form-label col-4">Ciudad :</label>
+        <div class="col-8">
+          <select class="custom-select" formControlName="IDCiudad" name="IDCiudad" id="IDCiudad"
+            [(ngModel)]="cciudad">
+    
+            <option [ngValue]="0" >Seleccione </option>
+            <option *ngFor="let opcion of listaCiudades"  [ngValue]="opcion.id">{{opcion.nombre}}</option>
+        </select>
+        <div *ngIf="frmEditarDatos.get('IDCiudad').errors" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+    </div>
+      </div>
+      <br>
+      <!-- <div class="form-group row">
+        <label for="CodDepartamento" class="col-form-label col-4">Departamento:</label>
+    
+        <div class="col-8">
+          <select class="form-control" formControlName="CodDepartamento" id="CodDepartamento" name="CodDepartamento"
+           [(ngModel)]="cdepar">
+    
+            <option [ngValue]="0">Seleccione </option>
+            <option *ngFor="let opcion of listaDepartamentos" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+        </select>
+        
+        <div *ngIf="frmEditarDatos.get('CodDepartamento').errors" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+    
+        </div> -->
+      <!-- </div>     -->
+      <div class="form-group row">
+        <label for="Departamento" class="col-form-label col-4">Departamento:</label>
+    
+        <div class="col-8">
+    
+          <select class="custom-select" formControlName="Departamento" name="Departamento" id="Departamento"
+            [(ngModel)]="cdepar">
+    
+            <option [ngValue]="0">Seleccione </option>
+            <option *ngFor="let opcion of listaDepartamentos" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+        </select>
+                <div *ngIf="frmEditarDatos.get('Departamento').errors" class="invalid-tooltip">
+                  Este campo es obligatorio
+                </div>
+        </div>
+      </div>
+      <br>
+    <div class="form-group row">
+      <label for="Dirección" class="col-form-label col-4">Dirección:</label>
+  
+      <div class="col-8">
+        <input type="text" placeholder="Ej:Dg 45 # 23" class="form-control" formControlName="Dirección" maxlength="201"
+          name="Dirección" id="Dirección" required
+          [(ngModel)]="direcc" />
+        <div *ngIf="frmEditarDatos.get('Dirección').errors?.required" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+        <div *ngIf="frmEditarDatos.get('Dirección').errors?.maxlength" class="invalid-tooltip">
+          Maximo 200 caracteres
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+      <label for="Postal" class="col-form-label col-4">Código postal:</label>
+  
+      <div class="col-8">
+        <select class="custom-select" formControlName="Postal" id="postal" name="Postal"
+         [(ngModel)]="cpost">
+  
+          <option [ngValue]="0">Seleccione </option>
+          <option *ngFor="let opcion of codPostal" [ngValue]="opcion.id">{{opcion.nombre}} - {{opcion.codpostal}}</option>
+      </select>
+      
+      <div *ngIf="frmEditarDatos.get('Postal').errors" class="invalid-tooltip">
+        Este campo es obligatorio
+      </div>
+  
+      </div>
+      
+    </div>
+    <br>
+    <div class="form-group row">
+      <label for="NomContac" class="col-form-label col-4">Nombre Contacto:</label>
+  
+      <div class="col-8">
+        <input type="text" class="form-control" placeholder="Contacto" formControlName="NomContac" maxlength="201"
+          name="NomContac" id="NomContac" [(ngModel)]="contac" />
+        <div *ngIf="frmEditarDatos.get('NomContac').errors?.required" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+        <div *ngIf="frmEditarDatos.get('NomContac').errors?.maxlength" class="invalid-tooltip">
+          Maximo 200 caracteres
+        </div>
+      </div>
+    </div>
+<br>
+    <div class="form-group row">
+      <label for="email" class="col-form-label col-4">Correo:</label>
+      <div class="col-8">
+        <input type="text" class="form-control" placeholder="Email" formControlName="Email" maxlength="201" name="Email"
+          id="email" pattern="[a-z0-9._%+-]+@[a-z0-9.+-]+\.[a-z]{2,3}$" [(ngModel)]="email" />
+        
+        <div *ngIf="frmEditarDatos.get('Email').errors?.maxlength" class="invalid-tooltip">
+          maximo 200 caracteres.
+        </div>
+        <div *ngIf="frmEditarDatos.get('Email').errors?.pattern" class="invalid-tooltip">
+          Formato de email es invalido.
+      </div>
+      </div>
+    </div>
+    <br>
+    <div class="form-group row">
+      <label for="Telefono" class="col-form-label col-4">Teléfono:</label>
+      <div class="col-8">
+        <input type="text" class="form-control" formControlName="Telefono" maxlength="50" id="Telefono"
+           name="Telefono" placeholder="Telefono" [(ngModel)]="tel" />
+        <div *ngIf="frmEditarDatos.get('Telefono').errors?.required" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="form-group row">
+      <label for="AreaP" class="col-form-label col-4">Área Pertenece</label>
+      <div class="col-8">
+        <input type="text" class="form-control" placeholder="Area" formControlName="AreaP" maxlength="201" id="AreaP"
+          name="AreaP" [(ngModel)]="area" />
+        <div *ngIf="frmEditarDatos.get('AreaP').errors?.required" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+        <div *ngIf="frmEditarDatos.get('AreaP').errors?.maxlength" class="invalid-tooltip">
+          maximo 200 caracteres
+    </div>
+      </div>
+    </div>
+
+    <br />
+
+   
+    <div class="d-flex justify-content-rigth">
+      <div>
+        <button class="btn btn btn-danger ml-2" (click)="atrasFormulario1()">Atrás</button>
+      </div>
+      <div>
+  
+        <button class="btn btn-primary ml-2" (click)="siguienteFactura()" [disabled]="!frmEditarDatos.valid"
+         >Siguiente</button>
+  
+      </div>
+    </div>
+  </form>
+  
+  
+
+  <form [formGroup]="frmEditarDatosGeneralesform" (ngSubmit)="editarCampos()" class="mx-sm-4 mt-4" *ngIf="formTres">
+    <div class="form-group row">
+      <label for="fac" class="col-form-label col-4">Facturador Electrónico</label>
+      <div class="col-8">
+        <select class="custom-select" formControlName="fac" id="fac" [ngClass]="{'is-ivalid': fac == 0}" [(ngModel)]="fac"
+          name="fac">
+          <option [ngValue]="0" >Seleccione </option>
+          <option [ngValue]="1">Si</option>
+          <option [ngValue]="2">No</option>
+        </select>
+      </div>
+          <div *ngIf="fac" class="invalid-tooltip">
+            Este campo es obligatorio
+          </div>
+    </div>
+    <div class="form-group row">
+      <label for="txttributo" class="col-form-label col-4">Tributo</label>
+      <div class="col-8">
+        <select class="custom-select" formControlName="txtTributo" name="txtTributo" id="txttributo"
+         [(ngModel)]="tribu">
+          <option [ngValue]="0">Seleccione </option>
+          <option *ngFor="let opcion of Tributo" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+        </select>
+        <div *ngIf="frmEditarDatosGeneralesform.get('txtTributo').errors" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+  
+      </div>
+  
+    </div>
+    <br>
+    <div class="form-group row">
+      <label for="txtregimen" class="col-form-label col-4">Régimen</label>
+      <div class="col-8">
+        <select class="custom-select" formControlName="txtRegimen" name="txtRegimen" id="txtregimen"
+         [(ngModel)]="cregimen">
+          <option [ngValue]="0">Seleccione </option>
+          <option *ngFor="let opcion of regimenes" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+        </select>
+        <div *ngIf="frmEditarDatosGeneralesform.get('txtRegimen').errors" class="invalid-tooltip">
+          Este campo es obligatorio
+        </div>
+      </div>
+    </div>
+    
+
+  <div class="d-flex justify-content-rigth">
+    <div>
+      <button class="btn btn btn-danger ml-2 mr-2" (click)="detalleFormulario2()">Atrás</button>
+    </div>
+    <div>
+      <button type="submit" *ngIf="esEditar"  [disabled]="!frmEditarDatosGeneralesform.valid" class="btn btn-primary ">Guardar<i
+          class="fa fa-floppy-o ml-2" aria-hidden="true"></i></button>
+    </div>
+  </div>
+  
+    </form>
+</div>
+</div>

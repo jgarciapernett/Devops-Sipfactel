@@ -1,0 +1,154 @@
+<div class="row">
+    <h4 class="m-3">Agregar Sucursales</h4>
+    <span style="color: #62b7e9;">
+        <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip="Agregar Sucursales"></i>
+    </span>
+</div>
+<div *ngIf="formularioUno">
+    <hr>
+
+
+    <form [formGroup]="frmAgregarSucursal" class="mx-sm-4" (ngSubmit)="guardarSucursal()">
+
+        <div class="form-group row">
+            <label for="txtdAscel" class="col-form-label col-4">Código Ascel-e :</label>
+
+            <div class="col-8">
+                <input type="text" formControlName="txtdAscel" maxlength="50" class="form-control" name="txtdAscel"
+                    id="txtdAscel" [(ngModel)]="sucursales.codascele">
+
+                <div *ngIf="frmAgregarSucursal.get('txtdAscel').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmAgregarSucursal.get('txtdAscel').errors?.minlength" class="invalid-tooltip">
+                    minimo 5 caracteres
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="txtnombreSucursal" class="col-form-label col-4">Nombre Sucursal :</label>
+
+            <div class="col-8">
+                <input type="text" formControlName="txtnombreSucursal" maxlength="50" class="form-control"
+                    name="txtnombreSucursal" id="txtnombreSucursal" [(ngModel)]="sucursales.nomsuc" />
+
+                <div *ngIf="frmAgregarSucursal.get('txtnombreSucursal').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmAgregarSucursal.get('txtnombreSucursal').errors?.minlength" class="invalid-tooltip">
+                    minimo 5 caracteres
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="ddlCodDepart" class="col-form-label col-4"> Departamento :</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="ddlCodDepart" name="ddlCodDepart" id="ddlCodDepart"
+                    [(ngModel)]="sucursales.coddepart">
+
+                    <option [ngValue]=0>Seleccione</option>
+                    <option *ngFor="let opcion of listaDepartamentos" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+
+                </select>
+
+                <div *ngIf="frmAgregarSucursal.get('ddlCodDepart').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="ddlCodCiudades" class="col-form-label col-4">Ciudad :</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="ddlCodCiudades" name="ddlCodCiudades" id="ddlCodCiudades"
+                    [(ngModel)]="sucursales.codciudad">
+
+                    <option [ngValue]=0>Seleccione</option>
+                    <option *ngFor="let opcion of listaCiudades" [ngValue]="opcion.id">{{opcion.nombre}}</option>
+
+                </select>
+
+                <div *ngIf="frmAgregarSucursal.get('ddlCodCiudades').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="txtcodPoint" class="col-form-label col-4">Código Point :</label>
+
+            <div class="col-8">
+                <input type="text" formControlName="txtcodPoint" maxlength="50" class="form-control" name="txtcodPoint"
+                    id="txtcodPoint" [(ngModel)]="sucursales.codpoint" />
+
+                <div *ngIf="frmAgregarSucursal.get('txtcodPoint').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmAgregarSucursal.get('txtcodPoint').errors?.minlength" class="invalid-tooltip">
+                    minimo 5 caracteres
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="txtDireccion" class="col-form-label col-4">Dirección :</label>
+
+            <div class="col-8">
+                <input type="text" formControlName="txtDireccion" maxlength="50" class="form-control"
+                    name="txtDireccion" id="txtDireccion" [(ngModel)]="sucursales.direccion" />
+
+                <div *ngIf="frmAgregarSucursal.get('txtDireccion').errors?.required" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+                <div *ngIf="frmAgregarSucursal.get('txtDireccion').errors?.minlength" class="invalid-tooltip">
+                    minimo 5 caracteres
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="ddlCodPostal" class="col-form-label col-4">Código Postal :</label>
+
+            <div class="col-8">
+
+                <select class="custom-select" formControlName="ddlCodPostal" name="ddlCodPostal" id="ddlCodPostal"
+                    [(ngModel)]="sucursales.codpostal">
+
+                    <option [ngValue]="0">Seleccione </option>
+                    <option *ngFor="let opcion of listaCodigoPostal" [ngValue]="opcion.id">{{ opcion.nombre }} -
+                        {{opcion.codpostal}}</option>
+
+                </select>
+
+                <div *ngIf="frmAgregarSucursal.get('ddlCodPostal').errors" class="invalid-tooltip">
+                    Este campo es obligatorio
+                </div>
+
+            </div>
+
+        </div>
+
+        <br />
+        <div class="d-flex justify-content-center">
+            <button type="button" (click)="botonCancelar()" data-dismiss="modal" class="btn btn-danger mr-3">
+                <i class="fa fa-ban mr-1"></i>Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary" [disabled]="!frmAgregarSucursal.valid">Guardar</button>
+        </div>
+    </form>
+</div>
+<br />

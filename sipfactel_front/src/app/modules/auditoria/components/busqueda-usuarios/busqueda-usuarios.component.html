@@ -1,0 +1,123 @@
+<div class="row">
+    <h4 class="mr-3 ml-5" style="margin-top:20px; margin-bottom:15px">Auditoría</h4>
+    <span style="color: #62b7e9;">
+    <i class="fa fa-info-circle fa-lg mt-4 mb-3" ngbTooltip=" pantalla del filtro de busqueda Auditoría"></i>
+    </span>
+</div>
+<div class="container">
+
+
+    <form [formGroup]="frmDatosProveedor" class="form-inline">
+        <div class="row">
+            <div class="form-group col-3">
+
+                <label for="d2">Fecha inicial :⠀</label>
+                <div class="input-group mb-2">
+                    <input class="form-control" [maxDate]="Date" name="d2" [(ngModel)]="fechaIni" [ngClass]="{'is-invalid': fechaFin != undefined && fechaIni == undefined, 'is-valid': fechaFin != undefined && fechaIni != undefined}" ngbDatepicker #d2="ngbDatepicker" formControlName="fechaIni">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" ngbTooltip="Calendario" (click)="d2.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true" ></i></button>
+                    </div>
+                    <div *ngIf="fechaIni == undefined" class="invalid-tooltip">
+                        Este campo es obligatorio
+                      </div>
+                </div>
+            </div>
+            <div class="form-group col-3">
+                <label for="d3">Fecha final :⠀</label>
+                <div class="input-group mb-2">
+                    <input class="form-control" [minDate]="fechaIni" [maxDate]="Date" name="d3" [(ngModel)]="fechaFin" [ngClass]="{'is-invalid': fechaIni != undefined  && fechaFin  == undefined, 'is-valid': fechaFin != undefined && fechaIni !=undefined}" ngbDatepicker #d3="ngbDatepicker" formControlName="fechaFin">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" ngbTooltip="Calendario" (click)="d3.toggle()" type="button"><i class="fa fa-calendar" aria-hidden="true"></i></button>
+                    </div>
+                    <div *ngIf="fechaFin == undefined" class="invalid-tooltip">
+                        Este campo es obligatorio
+                      </div>
+                </div>
+
+            </div>
+            <div class="input-group col-3">
+                <label for="d2"> Usuario :⠀</label>
+                <div class="input-group mb-2">
+
+                    <input class="form-control" formControlName="usuario"  [(ngModel)]="usuario" name="usuario">
+                    <button type="button" *ngIf="esConsultar" class="btn  btn-primary ml-3" Tooltip="Buscar" ngbTooltip="Buscar" [disabled]="fechaIni == undefined || fechaFin == undefined" (click)="obtenerDatosUsuario()"><i class="fa fa-search" aria-hidden="true"></i></button>
+                    <button *ngIf="desactivado" type="button" class="btn  btn-primary ml-3 " Tooltip="Descargar" ngbTooltip="Descargar" (click)="descargarExcel()"><i class="fa fa-file-excel-o" aria-hidden="true"></i></button>
+                </div>
+
+
+            </div>
+
+
+
+
+        </div>
+        <hr />
+    </form>
+
+
+</div>
+
+
+
+<div class="dropdown-menu ">
+    <a class="dropdown-item " href="# ">Action</a>
+    <a class="dropdown-item " href="# ">Another action</a>
+    <a class="dropdown-item " href="# ">Something else here</a>
+    <div class="dropdown-divider "></div>
+    <a class="dropdown-item " href="# ">Separated link</a>
+</div>
+
+
+
+
+<div *ngIf="tablaBusqueda">
+    <div class="col-12">
+        <tabla-filtro-buscar #tfb [paginacionService]="tablaPag.paginacionService" [lista]="auditorias" [($listaObservable)]="opcionesFiltro$"></tabla-filtro-buscar>
+    </div>
+    <table class="table table-striped table-hover table-bordered">
+
+        <thead>
+            <tr>
+
+                <th scope=" col ">Usuarios</th>
+                <th scope="col ">Nombres y Apellidos</th>
+                <th scope="col ">Rol</th>
+                <th scope="col ">IP</th>
+                <th scope="col ">Fecha y Hora</th>
+                <th scope="col ">Funcionaldad</th>
+                <th scope="col ">Descripción</th>
+                <th scope="col ">Detalles</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let opcion of opcionesFiltro$ | async ">
+                <td>
+                    <ngb-highlight [result]="opcion.audiUsuario" [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.audiNombre" [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.audiRol" [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.audiIp" [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.audiFecha |date:'dd/MM/yyyy  h:mm.aaa'" [term]=" tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.audiFuncionalidad" [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <ngb-highlight [result]="opcion.audiDescripcion" [term]="tfb.filtroTabla.value "></ngb-highlight>
+                </td>
+                <td>
+                    <span>{{opcion.audiDetalle}}</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <tabla-paginacion #tablaPag [lista]="auditorias " [($listaObservable)]="opcionesFiltro$"></tabla-paginacion>
+</div>
